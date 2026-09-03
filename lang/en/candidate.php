@@ -1,0 +1,86 @@
+<?php
+
+return [
+    'page' => [
+        'register_cv'=> 'Register CV',
+        'upload_new'=> 'Upload new CV',
+        'my_cv'=> 'My CV',
+        'personal' => 'Personal information',
+        'resume_file' => 'CV file',
+        'applied' => 'Applications submitted',
+        'profile'=> 'Profile',
+    ],
+
+    'attributes' => [
+        'headline'=> 'desired position',
+        'phone'=> 'phone number',
+        'date_of_birth'=> 'date of birth',
+        'address'=> 'address',
+        'skills'=> 'skills',
+        'education'=> 'education',
+        'summary'=> 'about me',
+        'experience_years' => 'years of experience',
+        'title'=> 'CV name',
+        'file' => 'CV file',
+    ],
+
+    'fields' => [
+        'full_name'=> 'Full name',
+        'headline'=> 'Desired position',
+        'phone'=> 'Phone number',
+        'date_of_birth'=> 'Date of birth',
+        'address'=> 'Address',
+        'skills'=> 'Skills',
+        'education'=> 'Education',
+        'summary'=> 'About me',
+        'experience_years'=> 'Years of experience',
+        'title'=> 'CV name',
+        'file' => 'Choose file',
+    ],
+
+    'placeholders' => [
+        'headline' => 'e.g. Backend Developer with 2 years of experience',
+        'skills' => 'e.g. PHP, Laravel, PostgreSQL',
+        'education'=> 'e.g. ABC University — Information Technology, 2020–2024',
+        'title'=> 'e.g. Backend Developer CV',
+    ],
+
+    'hints' => [
+        'skills'=> '(separated by commas)',
+        'file' => '(PDF, DOC, DOCX — max :size MB)',
+        'name_in_profile' => 'Change your name on the Profile page.',
+        'keep_old_file' => '(leave empty to keep the current file)',
+        'sent_with_apply' => 'This information is sent along with your application.',
+        'finish_upload' => 'Upload your CV file to finish registration.',
+        'keep_old_cv' => 'Upload a new CV file. Existing CVs are kept.',
+        'my_cv_desc' => 'CV files you uploaded and the information you filled in.',
+        'existing_cv' => 'Existing CVs:',
+    ],
+
+    'actions' => [
+        'finish_register' => 'Finish registration',
+        'upload' => 'Upload',
+        'update_info'=> 'Update information',
+        'edit_info'=> 'Edit information',
+        'view_info' => 'View filled information',
+        'edit_file' => 'Edit name & CV file',
+        'download' => 'Download',
+        'delete'=> 'Delete',
+        'cancel' => 'Cancel',
+        'add_more' => '+ Add new CV',
+        'save_changes'=> 'Save changes',
+    ],
+
+    'messages' => [
+        'cv_registered' => 'CV registered successfully. You can find it under “My CV”.',
+        'profile_updated' => 'CV information updated successfully.',
+        'resume_uploaded' => 'CV uploaded successfully.',
+        'resume_updated' => 'CV updated successfully.',
+        'resume_deleted' => 'CV deleted.',
+        'no_resume' => 'No CV file yet.',
+        'no_cv_hint' => 'You have no CV yet. Open a job post and click “Upload CV” to register.',
+        'confirm_delete' => 'Delete this CV?',
+        'default_badge' => 'Default',
+        'have_n_cv'  => 'You have :count CV(s). Upload another one below.',
+    ],
+];
