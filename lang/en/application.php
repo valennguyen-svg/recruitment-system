@@ -1,38 +1,43 @@
 <?php
 
 return [
-    'attributes'=>[
-        'resume_id'=>'CV',
-        'cover_letter'=>'cover letter',
+    'page' => [
+        'index'=> 'My applications',
+        'manage'=> 'Manage applications',
     ],
 
-    'fields'=>[
-        'title'=>'Apply',
-        'choose_cv'=>'Choose CV',
-        'cover_letter'=>'Cover letter',
-        'optional'=>'(optional)',
-        'submit'=>'Submit application',
-        'placeholder'=>'Why are you a good fit for this role?',
+    'attributes' => [
+        'resume_id'=> 'resume',
+        'cover_letter'=> 'cover letter',
+        'status'=> 'status',
+        'note'=> 'note',
     ],
 
-    'messages'=>[
-        'applied'=>'Application submitted. The recruiter will contact you.',
-        'already_sent'=>'You have already applied for this position.',
-        'none_yet'=>'You have not applied for any position yet.',
-        'need_cv'=>'You have no CV uploaded. Please add a CV before applying.',
-        'staff_connot'=>':role accounts cannot submit applications.',
-        'login_first'=>'Log in to apply for this position.',
-        'job_closed'=>'This job post is no longer accepting applications.',
-        'view_applied'=>'View my applications.',
-        'upload_cv'=>'Upload CV',
-        'upload_other'=>'+ Upload another CV',
+    'fields' => [
+        'resume'=> 'Attached CV',
+        'cover_letter'=> 'Cover letter',
+        'applied_at'=> 'Applied on',
+        'status'=> 'Status',
     ],
 
-    'errors'=>[
-        'already_applied'=>'You have already applied for this position.',
-        'job_closed'=>'This job post is no longer accepting applicaitons.',
-        'job_expired'=>'This job post has passed its deadline.',
-        'no_profile'=>'You need to register a candidate profile first.',
-        'invalid_transition'=>'Cannot change from :from to :to.',
+    'status' => [
+        'applied'=> 'Applied',
+        'reviewing'=> 'Reviewing',
+        'interviewing'=> 'Interviewing',
+        'offered'=> 'Offer sent',
+        'hired'=> 'Hired',
+        'rejected'=> 'Rejected',
+    ],
+
+    'actions' => [
+        'submit'=> 'Submit application',
+        'change_status' => 'Change status',
+    ],
+
+    'messages' => [
+        'none_yet'=> 'You have not applied to any jobs yet.',
+        'submitted'=> 'Application submitted.',
+        'status_updated'=> 'Application status updated.',
+        'invalid_transition'=> 'Cannot move from :from to :to.',
     ],
 ];

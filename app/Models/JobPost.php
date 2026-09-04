@@ -24,13 +24,12 @@ class JobPost extends Model
     protected function casts(): array
     {
         return [
-            'deadline' => 'date',
-            'published_at' => 'datetime',
-            'salary_negotiable' => 'boolean',
-            'benefits' => 'array',
-            'requirements' => 'array',
-            'status'=> JobStatus::class,
-            'employment_type' => EmploymentType::class,
+            'employment_type'=>\App\Enums\EmploymentType::class,
+            'experience_level'=>\App\Enums\ExperienceLevel::class,
+            'status'=>\App\Enums\JobStatus::class,
+            'benefits'=>'array',
+            'deadline'=>'date',
+            'published_at'=>'datetime',
         ];
     }
 

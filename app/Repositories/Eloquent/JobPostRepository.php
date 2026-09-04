@@ -2,9 +2,12 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Enums\JobStatus;
+use App\Enums\SortOption;
 use App\Models\JobPost;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class JobPostRepository extends BaseRepository implements JobPostRepositoryInterface
@@ -14,41 +17,41 @@ class JobPostRepository extends BaseRepository implements JobPostRepositoryInter
         parent::__construct($model);
     }
 
-    public function paginatePublished(array $filters, int $perPage): LengthAwarePaginator
+    public function paginatePublished(array $filters, SortOption $sort, int $perPage): LengthAwarePaginator
     {
-        return $this->model->newQuery()
-            ->with(['company:id,name,logo,city', 'category:id,name'])
-            ->published()
-            ->notExpired()
-            ->search($filters['q'] ?? null)
-            ->category($filters['category'] ?? null)
-            ->location($filters['location'] ?? null)
-            ->employmentType($filters['employment_type'] ?? null)
-            ->salaryAtLeast($filters['salary_min'] ?? null)
-            ->sorted($filters['sort'] ?? null)
-            ->paginate($perPage)
-            ->withQueryString();
+        $query = $this->model->newQuery()
+            ->with(['company', 'category'])
+            ->where('status', JobStatus::PUBLISHED)
+            ->where(fn (Builder $q) => $q->whereNull('deadline')->orWhere('deadline', '>=', now()));
+
+        $this->applyFilters($query, $filters);
+
+        return $sort->apply($query)->paginate($perPage)->withQueryString();
     }
 
-    public function relatedTo(JobPost $jobPost, int $limit): Collection
+    public function related(int $categoryId, int $excludeId, int $limit): Collection
     {
         return $this->model->newQuery()
-            ->published()
-            ->notExpired()
-            ->where('category_id', $jobPost->category_id)
-            ->whereKeyNot($jobPost->getKey())
+            ->with('company')
+            ->where('status', JobStatus::PUBLISHED)
+            ->where('category_id', $categoryId)
+            ->whereKeyNot($excludeId)
             ->latest('published_at')
             ->take($limit)
             ->get();
     }
 
-    public function incrementViews(JobPost $jobPost): void
+    private function applyFilters(Builder $query, array $filters): void
     {
-        $jobPost->incrementQuietly('views_count');
-    }
-
-    public function loadDetail(JobPost $jobPost): JobPost
-    {
-        return $jobPost->load(['company', 'category', 'creator:id,name']);
+        $query
+            ->when($filters['keyword'] ?? null, fn (Builder $q, string $keyword) => $q->where(
+                fn (Builder $sub) => $sub
+                    ->where('title', 'ilike', "%{$keyword}%")
+                    ->orWhere('description', 'ilike', "%{$keyword}%"),
+            ))
+            ->when($filters['location'] ?? null, fn (Builder $q, string $location) => $q->where('location', 'ilike', "%{$location}%"))
+            ->when($filters['category_id'] ?? null, fn (Builder $q, $id) => $q->where('category_id', $id))
+            ->when($filters['employment_type'] ?? null, fn (Builder $q, $type) => $q->where('employment_type', $type))
+            ->when($filters['experience_level'] ?? null, fn (Builder $q, $level) => $q->where('experience_level', $level));
     }
 }

@@ -24,7 +24,7 @@ class CandidateProfile extends Model
     protected function casts(): array
     {
         return [
-            'skills'        => 'array',
+            'skills'=> 'array',
             'date_of_birth' => 'date',
         ];
     }

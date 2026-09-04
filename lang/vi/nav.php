@@ -1,12 +1,12 @@
 <?php
 
 return [
+    'dashboard'=> 'Bảng điều khiển',
     'jobs'=> 'Việc làm',
-    'applied'=> 'Hồ sơ đã nộp',
-    'notifications'=> 'Thông báo',
-    'profile'=> 'Profile',
-    'dashboard'=> 'Dashboard',
-    'login' => 'Đăng nhập',
-    'register'=> 'Đăng ký',
+    'applications'=> 'Hồ sơ đã nộp',
+    'profile'=> 'Hồ sơ cá nhân',
+    'companies'=> 'Công ty',
+    'admin'=> 'Quản trị',
     'logout'=> 'Đăng xuất',
+    'notifications'=> 'Thông báo',
 ];

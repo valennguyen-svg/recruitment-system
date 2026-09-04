@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Application\StoreApplicationRequest;
+use App\Http\Requests\Application\UpdateApplicationStatusRequest;
+use App\Models\Application;
 use App\Models\JobPost;
 use App\Services\ApplicationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationController extends Controller
 {
@@ -16,21 +17,36 @@ class ApplicationController extends Controller
         private readonly ApplicationService $applications,
     ) {}
 
-    public function store(StoreApplicationRequest $request, JobPost $jobPost): RedirectResponse
-    {
-        $profile = $request->user()->candidateProfile;
-
-        abort_if($profile === null, Response::HTTP_FORBIDDEN, __('application.errors.no_profile'));
-
-        $this->applications->apply($jobPost, $profile, $request->validated());
-
-        return back()->with('success', __('application.messages.applied'));
-    }
-
     public function index(Request $request): View
     {
         return view('applications.index', [
-            'applications' => $this->applications->listForProfile($request->user()->candidateProfile),
+            'applications' => $this->applications->listForProfile(
+                $request->user()->candidateProfile,
+            ),
         ]);
+    }
+
+    public function store(StoreApplicationRequest $request, JobPost $job): RedirectResponse
+    {
+        $this->applications->apply(
+            $request->user()->candidateProfile,
+            $job,
+            $request->validated(),
+        );
+
+        return redirect()
+            ->route('applications.index')
+            ->with('success', __('application.messages.submitted'));
+    }
+
+    public function updateStatus(UpdateApplicationStatusRequest $request, Application $application): RedirectResponse
+    {
+        $this->applications->changeStatus(
+            $application,
+            $request->status(),
+            $request->validated('note'),
+        );
+
+        return back()->with('success', __('application.messages.status_updated'));
     }
 }

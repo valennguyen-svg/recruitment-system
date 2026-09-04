@@ -3,34 +3,29 @@
 namespace App\Services;
 
 use App\Constants\JobPostConstants;
-use App\Enums\JobStatus;
+use App\Enums\SortOption;
 use App\Models\JobPost;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Symfony\Component\HttpFoundation\Response;
 
 class JobPostService
 {
     public function __construct(
-        private readonly JobPostRepositoryInterface $jobPosts,
+        private readonly JobPostRepositoryInterface $jobs,
     ) {}
 
-    public function search(array $filters): LengthAwarePaginator
+    public function search(array $filters, SortOption $sort): LengthAwarePaginator
     {
-        return $this->jobPosts->paginatePublished($filters, JobPostConstants::PER_PAGE);
+        return $this->jobs->paginatePublished($filters, $sort, JobPostConstants::PER_PAGE);
     }
 
-    public function prepareDetail(JobPost $jobPost): Collection
+    public function relatedTo(JobPost $job): Collection
     {
-        abort_unless(
-            $jobPost->status === JobStatus::PUBLISHED,
-            Response::HTTP_NOT_FOUND,
+        return $this->jobs->related(
+            $job->category_id,
+            $job->getKey(),
+            JobPostConstants::RELATED_LIMIT,
         );
-
-        $this->jobPosts->incrementViews($jobPost);
-        $this->jobPosts->loadDetail($jobPost);
-
-        return $this->jobPosts->relatedTo($jobPost, JobPostConstants::RELATED_LIMIT);
     }
 }

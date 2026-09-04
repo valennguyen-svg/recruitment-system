@@ -1,12 +1,11 @@
 <?php
-
-return[
-    'jobs'=>'Jobs',
-    'applied'=>'My applications',
-    'notifications'=>'Notifications',
-    'profile'=>'Profile',
-    'dashboard'=>'Dashboard',
-    'login'=>'Log in',
-    'register'=>'Register',
-    'logout'=>'Log out',
+return [
+    'dashboard'=> 'Dashboard',
+    'jobs'=> 'Jobs',
+    'applications'=> 'My applications',
+    'profile'=> 'Profile',
+    'companies'=> 'Companies',
+    'admin'=> 'Administration',
+    'logout'=> 'Log out',
+    'notifications'=> 'Notifications',
 ];
