@@ -15,6 +15,9 @@ use App\Repositories\Eloquent\ResumeRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\UserRepository;
+use App\Repositories\Contracts\JobCategoryRepositoryInterface;
+use App\Repositories\Eloquent\JobCategoryRepository;
+
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -27,6 +30,7 @@ class RepositoryServiceProvider extends ServiceProvider
         ApplicationRepositoryInterface::class => ApplicationRepository::class,
         AuditLogRepositoryInterface::class => AuditLogRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
+        JobCategoryRepositoryInterface::class => JobCategoryRepository::class,
     ];
 
     public function register(): void

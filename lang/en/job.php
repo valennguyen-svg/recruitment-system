@@ -64,6 +64,8 @@ return [
         'draft'=> 'Draft',
         'published' => 'Open',
         'closed'=> 'Closed',
+        'pending_review'=> 'Pending review',
+        'rejected'=> 'Rejected',
     ],
 
     'sort' => [

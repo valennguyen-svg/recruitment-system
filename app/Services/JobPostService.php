@@ -28,4 +28,9 @@ class JobPostService
     {
         return \App\Models\JobCategory::orderBy('name')->get();
     }
+    public function loadDetail(JobPost $job): JobPost
+    {
+        $this->jobs->incrementViews($job);
+        return $this->jobs->loadDetail($job);
+    }
 }

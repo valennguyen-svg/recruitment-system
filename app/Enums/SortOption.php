@@ -33,4 +33,23 @@ enum SortOption: string
     {
         return self::NEWEST;
     }
+        public function filters(): array
+    {
+        $validated = $this->safe()->all();
+
+        return [
+            'keyword'         => $validated['q']               ?? null,
+            'category_id'     => $validated['category']        ?? null,
+            'location'        => $validated['location']        ?? null,
+            'employment_type' => $validated['employment_type'] ?? null,
+            'salary_min'      => $validated['salary_min']      ?? null,
+        ];
+    }
+
+    public function sortOption(): SortOption
+    {
+        return SortOption::tryFrom((string) $this->input('sort'))
+            ?? SortOption::default();
+    }
+
 }

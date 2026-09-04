@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\JobStatus;
 use App\Http\Requests\Job\JobSearchRequest;
 use App\Http\Requests\Job\RejectJobRequest;
-use App\Models\JobCategory;
 use App\Models\JobPost;
+use App\Services\JobCategoryService;
 use App\Services\JobPostService;
 use App\Services\JobWorkflowService;
 use Illuminate\Http\RedirectResponse;
@@ -17,13 +17,17 @@ class JobPostController extends Controller
     public function __construct(
         private readonly JobPostService $jobPostService,
         private readonly JobWorkflowService $workflow,
+        private readonly JobCategoryService $categories,
     ) {}
 
     public function index(JobSearchRequest $request): View
     {
         return view('jobs.index', [
-            'jobs'       => $this->jobPostService->search($request->filters()),
-            'categories' => JobCategory::orderBy('name')->get(['id', 'name']),
+            'jobs'       => $this->jobPostService->search(
+                $request->filters(),
+                $request->sortOption(),
+            ),
+            'categories' => $this->categories->listForFilter(),
         ]);
     }
 

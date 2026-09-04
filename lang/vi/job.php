@@ -63,6 +63,8 @@ return [
         'draft'=> 'Bản nháp',
         'published'=> 'Đang tuyển',
         'closed'=> 'Đã đóng',
+        'pending_review' => 'Pending review',
+        'rejected'=> 'Rejected',
     ],
 
     'sort' => [

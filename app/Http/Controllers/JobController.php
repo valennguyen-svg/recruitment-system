@@ -16,18 +16,16 @@ class JobController extends Controller
     public function index(JobSearchRequest $request): View
     {
         return view('jobs.index', [
-            'jobs' => $this->jobs->search($request->filters(), $request->sortOption()),
-            "categories"=>$this->jobs->categories(),
+            'jobs'       => $this->jobs->search($request->filters(), $request->sortOption()),
+            'categories' => $this->jobs->categories(),
         ]);
     }
 
     public function show(JobPost $job): View
     {
-        $job->load(['company', 'category']);
-
         return view('jobs.show', [
-            'job'=> $job,
-            'related'=> $this->jobs->relatedTo($job),
+            'job'     => $this->jobs->loadDetail($job),
+            'related' => $this->jobs->relatedTo($job),
         ]);
     }
 }
