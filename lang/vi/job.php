@@ -40,6 +40,7 @@ return [
 
     'placeholders'=> [
         'keyword'=> 'Tên công việc, kỹ năng...',
+        'salary_min'=>'Lương tối thiểu',
     ],
 
     'employment_type'=> [

@@ -19,9 +19,9 @@ class StoreJobPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=> ['required', 'string', 'max:' . JobPostConstants::TITLE_MAX_LENGTH],
+            'title'=> ['required', 'string', 'max:' . JobPostConstants::TITLE_MAX],
             'category_id'=> ['required', 'integer', 'exists:categories,id'],
-            'location'=> ['required', 'string', 'max:' . JobPostConstants::LOCATION_MAX_LENGTH],
+            'location'=> ['required', 'string', 'max:' . JobPostConstants::LOCATION_MAX],
             'employment_type'=> ['required', Rule::enum(EmploymentType::class)],
             'experience_level'=> ['required', Rule::enum(ExperienceLevel::class)],
             'salary_min'=> ['nullable', 'integer', 'min:0'],
@@ -30,7 +30,7 @@ class StoreJobPostRequest extends FormRequest
             'description'=> ['required', 'string'],
             'requirements'=> ['required', 'string'],
             'benefits'=> ['nullable', 'array'],
-            'benefits.*'=> ['string', 'max:' . JobPostConstants::BENEFIT_MAX_LENGTH],
+            'benefits.*'=> ['string', 'max:' . JobPostConstants::BENEFIT_MAX],
             'deadline' => ['required', 'date', 'after:today'],
             'status'=> ['required', Rule::enum(JobStatus::class)],
         ];

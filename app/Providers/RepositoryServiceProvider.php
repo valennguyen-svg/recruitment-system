@@ -13,6 +13,8 @@ use App\Repositories\Eloquent\CandidateProfileRepository;
 use App\Repositories\Eloquent\JobPostRepository;
 use App\Repositories\Eloquent\ResumeRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Eloquent\UserRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

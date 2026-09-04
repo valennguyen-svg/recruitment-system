@@ -38,7 +38,11 @@ return [
         'benefits'=> 'Benefits',
     ],
 
-    'placeholders' => ['keyword' => 'Job title, skills...'],
+    'placeholders' => [
+        'keyword' => 'Job title, skills...',
+        'salary_min'=>'Min salary',
+    ],
+    
 
     'employment_type'=> [
         'full_time' => 'Full-time',

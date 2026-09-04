@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\EmploymentType;
+use App\Enums\ExperienceLevel;
 use App\Enums\JobStatus;
 use App\Enums\SortOption;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,9 +25,9 @@ class JobPost extends Model
     protected function casts(): array
     {
         return [
-            'employment_type'=>\App\Enums\EmploymentType::class,
-            'experience_level'=>\App\Enums\ExperienceLevel::class,
-            'status'=>\App\Enums\JobStatus::class,
+            'employment_type'=>EmploymentType::class,
+            'experience_level'=>ExperienceLevel::class,
+            'status'=>JobStatus::class,
             'benefits'=>'array',
             'deadline'=>'date',
             'published_at'=>'datetime',

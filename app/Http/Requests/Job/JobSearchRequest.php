@@ -35,8 +35,18 @@ class JobSearchRequest extends FormRequest
     /** @return array<string, mixed> */
     public function filters(): array
     {
-        return $this->safe()->only([
-            'q', 'category', 'location', 'employment_type', 'salary_min', 'sort',
-        ]);
+        $validated = $this->safe()->all();
+        return [
+            'keyword'=>$validated['q'] ?? null,
+            'category_id'=>$validated['category']??null,
+            'location'=>$validated['location']??null,
+            'employment_type'=>$validated['emplyment_type']??null,
+            'salary_min'=>$validated['salary_min']??null,
+        ];
+    }
+    public function sortOption(): SortOption
+    {
+        return SortOption::tryFrom((string) $this->input('sort'))
+        ?? SortOption::default();
     }
 }

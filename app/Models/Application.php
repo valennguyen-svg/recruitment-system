@@ -24,7 +24,7 @@ class Application extends Model
     {
         return [
             'applied_at' => 'datetime',
-            'status'     => \App\Enums\ApplicationStatus::class,
+            'status'     =>ApplicationStatus::class,
         ];
     }
 

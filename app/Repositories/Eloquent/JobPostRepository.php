@@ -29,16 +29,26 @@ class JobPostRepository extends BaseRepository implements JobPostRepositoryInter
         return $sort->apply($query)->paginate($perPage)->withQueryString();
     }
 
-    public function related(int $categoryId, int $excludeId, int $limit): Collection
+    public function relatedTo(JobPost $job, int $limit): Collection
     {
         return $this->model->newQuery()
             ->with('company')
             ->where('status', JobStatus::PUBLISHED)
-            ->where('category_id', $categoryId)
-            ->whereKeyNot($excludeId)
+            ->where('category_id', $job->category_id)
+            ->whereKeyNot($job->getKey())
             ->latest('published_at')
             ->take($limit)
             ->get();
+    }
+
+    public function incrementViews(JobPost $job): void
+    {
+        $job->increment('views_count');
+    }
+
+    public function loadDetail(JobPost $job): JobPost
+    {
+        return $job->load(['company', 'category']);
     }
 
     private function applyFilters(Builder $query, array $filters): void
@@ -52,6 +62,7 @@ class JobPostRepository extends BaseRepository implements JobPostRepositoryInter
             ->when($filters['location'] ?? null, fn (Builder $q, string $location) => $q->where('location', 'ilike', "%{$location}%"))
             ->when($filters['category_id'] ?? null, fn (Builder $q, $id) => $q->where('category_id', $id))
             ->when($filters['employment_type'] ?? null, fn (Builder $q, $type) => $q->where('employment_type', $type))
-            ->when($filters['experience_level'] ?? null, fn (Builder $q, $level) => $q->where('experience_level', $level));
+            ->when($filters['experience_level'] ?? null, fn (Builder $q, $level) => $q->where('experience_level', $level))
+            ->when($filters['salary_min'] ?? null, fn (Builder $q, $min) => $q->where('salary_max', '>=', $min));
     }
 }

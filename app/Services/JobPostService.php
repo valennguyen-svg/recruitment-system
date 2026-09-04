@@ -22,10 +22,10 @@ class JobPostService
 
     public function relatedTo(JobPost $job): Collection
     {
-        return $this->jobs->related(
-            $job->category_id,
-            $job->getKey(),
-            JobPostConstants::RELATED_LIMIT,
-        );
+         return $this->jobs->relatedTo($job, JobPostConstants::RELATED_LIMIT);
+    }
+    public function categories(): Collection
+    {
+        return \App\Models\JobCategory::orderBy('name')->get();
     }
 }

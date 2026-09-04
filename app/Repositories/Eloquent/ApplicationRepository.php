@@ -15,27 +15,20 @@ class ApplicationRepository extends BaseRepository implements ApplicationReposit
         parent::__construct($model);
     }
 
-    public function existsForJobAndProfile(JobPost $jobPost, CandidateProfile $profile): bool
+    public function paginateForCandidate(?CandidateProfile $profile, int $perPage): LengthAwarePaginator
     {
         return $this->model->newQuery()
-            ->where('job_post_id', $jobPost->getKey())
+            ->with(['jobPost.company', 'resume'])
+            ->where('candidate_profile_id', $profile?->getKey())
+            ->latest()
+            ->paginate($perPage);
+    }
+
+    public function existsFor(CandidateProfile $profile, JobPost $job): bool
+    {
+        return $this->model->newQuery()
             ->where('candidate_profile_id', $profile->getKey())
+            ->where('job_post_id', $job->getKey())
             ->exists();
-    }
-
-    public function paginateForProfile(?CandidateProfile $profile, int $perPage): LengthAwarePaginator
-    {
-        $query = $this->model->newQuery()->with(['jobPost.company', 'resume']);
-
-        $profile === null
-            ? $query->whereRaw('1 = 0')
-            : $query->where('candidate_profile_id', $profile->getKey());
-
-        return $query->latest()->paginate($perPage);
-    }
-
-    public function logStatusChange(Application $application, array $attributes): void
-    {
-        $application->statusLogs()->create($attributes);
     }
 }

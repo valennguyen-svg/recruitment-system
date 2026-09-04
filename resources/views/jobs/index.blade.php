@@ -16,8 +16,9 @@
             {{-- Bộ lọc --}}
             <form method="GET" action="{{ route('jobs.index') }}"
                   class="p-4 sm:p-6 bg-white shadow sm:rounded-lg">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                    <input type="text" name="keyword" value="{{ request('keyword') }}"
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    <input type="text" name="q" value="{{ request('q') }}"
                            placeholder="{{ __('job.placeholders.keyword') }}"
                            class="w-full border-gray-300 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500">
 
@@ -34,6 +35,23 @@
                             </option>
                         @endforeach
                     </select>
+
+                    @isset($categories)
+                        <select name="category"
+                                class="w-full border-gray-300 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">{{ __('job.attributes.category_id') }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                        @selected((int) request('category') === $category->id)>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    @endisset
+
+                    <input type="number" name="salary_min" min="0" value="{{ request('salary_min') }}"
+                           placeholder="{{ __('job.placeholders.salary_min') }}"
+                           class="w-full border-gray-300 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500">
 
                     <select name="sort"
                             class="w-full border-gray-300 rounded-lg text-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -65,20 +83,50 @@
 
                 @forelse ($jobs as $job)
                     <div class="py-4 border-b last:border-0">
-                        <a href="{{ route('jobs.show', $job) }}"
-                           class="font-medium text-blue-600 hover:underline">
-                            {{ $job->title }}
-                        </a>
+                        <div class="flex items-start justify-between gap-4">
+                            <div class="min-w-0">
+                                <a href="{{ route('jobs.show', $job) }}"
+                                   class="font-medium text-blue-600 hover:underline">
+                                    {{ $job->title }}
+                                </a>
 
-                        <p class="text-sm text-gray-700 mt-1">🏢 {{ $job->company->name ?? '' }}</p>
+                                <p class="text-sm text-gray-700 mt-1">🏢 {{ $job->company?->name }}</p>
 
-                        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
-                            <span>📍 {{ $job->location }}</span>
-                            <span>💼 {{ $job->category->name ?? '' }}</span>
-                            <span>🕒 {{ $job->employment_type->label() }}</span>
-                            @if ($job->deadline)
-                                <span>⏳ {{ __('job.fields.deadline') }} {{ $job->deadline->format('d/m/Y') }}</span>
-                            @endif
+                                <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-gray-500">
+                                    <span>📍 {{ $job->location }}</span>
+
+                                    @if ($job->category)
+                                        <span>💼 {{ $job->category->name }}</span>
+                                    @endif
+
+                                    @if ($job->employment_type)
+                                        <span>🕒 {{ $job->employment_type->label() }}</span>
+                                    @endif
+
+                                    @if ($job->deadline)
+                                        <span>⏳ {{ __('job.fields.deadline') }} {{ $job->deadline->format('d/m/Y') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="shrink-0 text-right text-sm">
+                                <p class="text-gray-900 font-medium">
+                                    @if ($job->salary_min || $job->salary_max)
+                                        {{ number_format($job->salary_min ?? 0) }}
+                                        @if ($job->salary_max)
+                                            – {{ number_format($job->salary_max) }}
+                                        @endif
+                                    @else
+                                        {{ __('job.messages.negotiable') }}
+                                    @endif
+                                </p>
+
+                                @if ($job->published_at)
+                                    <p class="text-xs text-gray-400 mt-1">
+                                        {{ $job->published_at->diffForHumans() }}
+                                    </p>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @empty
