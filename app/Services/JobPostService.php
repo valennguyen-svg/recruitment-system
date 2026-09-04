@@ -33,4 +33,10 @@ class JobPostService
         $this->jobs->incrementViews($job);
         return $this->jobs->loadDetail($job);
     }
+    public function prepareDetail(JobPost $job): Collection
+    {
+        $this->jobs->incrementViews($job);
+        $this->jobs->loadDetail($job);
+        return $this->relatedTo($job);
+    }
 }
