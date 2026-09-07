@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\UserConstants;
 use App\Http\Requests\Profile\DeleteUserRequest;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Services\ApplicationService;
-use App\Services\CandidateProfileService;
+use App\Services\ProfileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -13,38 +14,31 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     public function __construct(
-        private readonly CandidateProfileService $profiles,
+        private readonly ProfileService $profiles,
         private readonly ApplicationService $applications,
     ) {}
 
     public function edit(Request $request): View
     {
-        $user = $request->user();
+        $user      = $request->user();
         $candidate = $user->candidateProfile;
 
-        if ($candidate !== null) {
-            $candidate->load('resumes');
-        }
+        $candidate?->load('resumes');
 
         return view('profile.edit', [
-            'user' => $user,
-            'candidate' => $candidate,
+            'user'         => $user,
+            'candidate'    => $candidate,
             'applications' => $this->applications->listForProfile($candidate),
         ]);
     }
 
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(UpdateProfileRequest $request): RedirectResponse
     {
-        $user = $request->user();
-        $user->fill($request->validated());
+        $this->profiles->updateAccount($request->user(), $request->validated());
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
-
-        return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        return redirect()
+            ->route('profile.edit')
+            ->with('status', UserConstants::STATUS_PROFILE_UPDATED);
     }
 
     public function destroy(DeleteUserRequest $request): RedirectResponse

@@ -18,7 +18,7 @@ class UpdateResumeRequest extends FormRequest
             'title' => ['required', 'string', 'max:'.ResumeConstants::TITLE_MAX_LENGTH],
             'file' => [
                 'nullable', 'file',
-                'mimes:'.ResumeConstants::MIMES,
+                'mimes:'.ResumeConstants::ALLOWED_MIMES,
                 'max:'.ResumeConstants::MAX_SIZE_KB,
             ],
         ];

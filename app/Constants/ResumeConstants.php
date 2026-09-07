@@ -8,7 +8,7 @@ final class ResumeConstants
 
     public const TITLE_MAX_LENGTH = 255;
 
-    public const MIMES = 'pdf,doc,docx';
+    public const ALLOWED_MIMES = 'pdf,doc,docx';
 
     public const ACCEPT_ATTR = '.pdf,.doc,.docx';
 

@@ -11,6 +11,7 @@ use App\Repositories\Contracts\AuditLogRepositoryInterface;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class JobWorkflowService
 {
@@ -46,7 +47,7 @@ class JobWorkflowService
             $this->jobPosts->update($job, $attributes);
 
             $this->auditLogs->record([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => AuditAction::JOB_STATUS_CHANGED->value,
                 'model_type' => JobPost::class,
                 'model_id' => $job->getKey(),

@@ -7,6 +7,7 @@ use App\Constants\NotificationConstants;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
     private function composeNotificationBell(): void
     {
         View::composer('layouts.partials.notification-bell', function ($view): void {
-            $user = auth()->user();
+            $user = Auth::user();
 
             $view->with([
                 'unread' => $user

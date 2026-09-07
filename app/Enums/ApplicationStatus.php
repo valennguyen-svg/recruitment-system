@@ -12,27 +12,29 @@ enum ApplicationStatus: string
     case REJECTED = 'rejected';
     case WITHDRAWN = 'withdrawn';
 
-    public function label(): string
+        public function label(): string
     {
         return __(match ($this) {
             self::APPLIED => 'Applied',
-            self::REVIEWING => 'Reviewing',
-            self::INTERVIEWING => 'Interviewing',
-            self::OFFERED => 'Offer sent',
+            self::SCREENING => 'Screening',
+            self::INTERVIEW => 'Interview',
+            self::OFFER => 'Offer sent',
             self::HIRED => 'Hired',
             self::REJECTED => 'Rejected',
+            self::WITHDRAWN => 'Withdrawn',
         });
     }
 
-    public function badgeClass(): string
+        public function badgeClass(): string
     {
         return match ($this) {
             self::APPLIED => 'bg-gray-100 text-gray-700',
             self::SCREENING => 'bg-blue-100 text-blue-700',
-            self::INTERVIEW => 'bg-yellow-100 text-yellow-800',
-            self::OFFER => 'bg-indigo-100 text-indigo-700',
+            self::INTERVIEW => 'bg-amber-100 text-amber-700',
+            self::OFFER => 'bg-purple-100 text-purple-700',
             self::HIRED => 'bg-green-100 text-green-700',
-            self::REJECTED, self::WITHDRAWN => 'bg-red-100 text-red-700',
+            self::REJECTED => 'bg-red-100 text-red-700',
+            self::WITHDRAWN => 'bg-slate-100 text-slate-600',
         };
     }
 

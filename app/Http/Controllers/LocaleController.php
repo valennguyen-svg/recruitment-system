@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Constants\LocaleConstants;
-use App\Http\Requests\SwitchLocaleRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class LocaleController extends Controller
 {
-    public function switch(SwitchLocaleRequest $request): RedirectResponse
+    public function switch(Request $request, string $locale): RedirectResponse
     {
-        $request->session()->put(
-            LocaleConstants::SESSION_KEY,
-            $request->validated('locale'),
-        );
+        $request->session()->put(LocaleConstants::SESSION_KEY, $locale);
 
         return back();
     }

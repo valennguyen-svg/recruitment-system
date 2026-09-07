@@ -26,5 +26,7 @@ final class JobPostConstants
 
     public const QUANTITY_MIN = 1;
 
+    public const REJECT_REASON_MAX = 1000;
+
     private function __construct() {}
 }

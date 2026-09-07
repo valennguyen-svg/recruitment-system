@@ -10,24 +10,32 @@ class ProfileService
 {
     public function __construct(
         private readonly UserRepositoryInterface $users,
-    ) {
-        throw new \Exception('Not implemented');
-    }
+    ) {}
 
+    /**
+     * Cập nhật thông tin tài khoản.
+     * Đổi email sẽ huỷ trạng thái đã xác minh, buộc xác minh lại.
+     *
+     * @param  array{name: string, email: string}  $data
+     */
     public function updateAccount(User $user, array $data): User
     {
         $user->fill($data);
+
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
+
         $user->save();
 
         return $user;
     }
 
+    /** Đăng xuất rồi xoá tài khoản. */
     public function deleteAccount(User $user): void
     {
         Auth::logout();
+
         $this->users->delete($user);
     }
 }
