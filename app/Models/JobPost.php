@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Override;
 
 class JobPost extends Model
 {
@@ -34,8 +33,6 @@ class JobPost extends Model
             'published_at'=>'datetime',
         ];
     }
-
-    #[Override]
     public function getRouteKeyName(): string
     {
         return 'slug';

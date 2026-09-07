@@ -6,23 +6,22 @@ use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Override;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    #[Override]
+   
     public function __construct(User $model)
     {
         parent::__construct($model);
     }
 
-    #[Override]
+   
     public function findByEmail(string $email): ?User
     {
         return $this->model->newQuery()->where('email', $email)->first();
     }
 
-    #[Override]
+    
     public function updatePassword(User $user, string $hashedPassword): User
     {
         $user->forceFill([

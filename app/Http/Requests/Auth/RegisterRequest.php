@@ -6,7 +6,6 @@ use App\Constants\AuthConstants;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
-use Override;
 
 class RegisterRequest extends FormRequest
 {
@@ -26,7 +25,6 @@ class RegisterRequest extends FormRequest
             'password'=>['required', 'confirmed', Password::defaults()],
         ];
     }
-    #[Override]
     public function attributes(): array
     {
         return __('auth.attributes');
