@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 enum SortOption: string
 {
-    case NEWEST      = 'newest';
-    case OLDEST      = 'oldest';
-    case SALARY_DESC = 'salary_desc';
-    case DEADLINE    = 'deadline';
+    case NEWEST='newest';
+    case OLDEST='oldest';
+    case SALARY_HIGH='salary_high';
+    case DEADLINE='deadline';
+    case POPULAR='popular';
 
     public function label(): string
     {
@@ -19,37 +20,21 @@ enum SortOption: string
     public function apply(Builder $query): Builder
     {
         return match ($this) {
-            self::NEWEST      => $query->latest('published_at'),
-            self::OLDEST      => $query->oldest('published_at'),
-            self::SALARY_DESC => $query->orderByDesc('salary_max'),
-            self::DEADLINE    => $query->orderBy('deadline'),
+            self::NEWEST => $query->orderByDesc('published_at'),
+            self::OLDEST => $query->orderBy('published_at'),
+            self::SALARY_HIGH => $query->orderByRaw('salary_max DESC NULLS LAST'),
+            self::DEADLINE=> $query->orderByRaw('deadline ASC NULLS LAST'),
+            self::POPULAR=> $query->orderByDesc('views_count'),
         };
     }
+
     public static function values(): array
     {
         return array_column(self::cases(), 'value');
     }
+
     public static function default(): self
     {
         return self::NEWEST;
     }
-        public function filters(): array
-    {
-        $validated = $this->safe()->all();
-
-        return [
-            'keyword'         => $validated['q']               ?? null,
-            'category_id'     => $validated['category']        ?? null,
-            'location'        => $validated['location']        ?? null,
-            'employment_type' => $validated['employment_type'] ?? null,
-            'salary_min'      => $validated['salary_min']      ?? null,
-        ];
-    }
-
-    public function sortOption(): SortOption
-    {
-        return SortOption::tryFrom((string) $this->input('sort'))
-            ?? SortOption::default();
-    }
-
 }

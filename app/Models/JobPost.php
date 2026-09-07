@@ -9,6 +9,7 @@ use App\Enums\SortOption;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Override;
 
 class JobPost extends Model
@@ -55,7 +56,7 @@ class JobPost extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function applications()
+    public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
     }

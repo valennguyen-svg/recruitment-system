@@ -8,4 +8,6 @@ return [
     'admin'=> 'Administration',
     'logout'=> 'Log out',
     'notifications'=> 'Notifications',
+    'applied' => 'My applications',
+    'logged_in'=>"You're logged in!",
 ];

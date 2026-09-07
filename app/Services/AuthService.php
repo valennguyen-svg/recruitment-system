@@ -2,30 +2,33 @@
 
 namespace App\Services;
 
+use App\Constants\RouteConstants;
 use App\Constants\UserConstants;
 use App\Enums\UserRole;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
-use Illuminate\Foundation\Providers\FoundationServiceProvider;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\Route;
 
 class AuthService
 {
     public function __construct(
         private readonly UserRepositoryInterface $users,
-    ){}
+    ) {}
 
     public function register(array $data): User
     {
         return DB::transaction(function () use ($data): User {
+            /** @var User $user */
             $user = $this->users->create([
-                'name'=>$data['name'],
-                'email'=>$data['email'],
-                'password'=>Hash::make($data['password']),
+                'name'     => $data['name'],
+                'email'    => $data['email'],
+                'password' => Hash::make($data['password']),
             ]);
+
             $this->initializeCandidate($user);
+
             return $user;
         });
     }
@@ -35,39 +38,61 @@ class AuthService
         $user = $this->users->findByEmail($googleUser->getEmail());
 
         if ($user !== null) {
-            if (blank($user->provider)){
-                $this->users->update($user, [
-                    'provider' => UserConstants::PROVIDER_GOOGLE,
-                    'provider_id'=>$googleUser->getId(),
-                    'avatar'=>$googleUser->getAvatar(),
-                ]);
-            }
-            return $user;
+            return $this->linkGoogleAccount($user, $googleUser);
         }
+
         return DB::transaction(function () use ($googleUser): User {
+            /** @var User $user */
             $user = $this->users->create([
-                'name'=>$googleUser->getName(),
-                'email'=>$googleUser->getEmail(),
-                'provider'=>UserConstants::PROVIDER_GOOGLE,
-                'provider_id'=>$googleUser->getId(),
-                'avater'=>$googleUser->getAvatar(),
-                'password'=>null,
-                'email_verified_at'=>now(),
+                'name'              => $googleUser->getName(),
+                'email'             => $googleUser->getEmail(),
+                'provider'          => UserConstants::PROVIDER_GOOGLE,
+                'provider_id'       => $googleUser->getId(),
+                'avatar'            => $googleUser->getAvatar(),
+                'password'          => null,
+                'email_verified_at' => now(),
             ]);
+
             $this->initializeCandidate($user);
+
             return $user;
         });
     }
+
     public function changePassword(User $user, string $plainPassword): User
     {
         return $this->users->update($user, [
-            'password'=> Hash::make($plainPassword),
+            'password' => Hash::make($plainPassword),
         ]);
     }
 
     public function resetPassword(User $user, string $plainPassword): User
     {
         return $this->users->updatePassword($user, Hash::make($plainPassword));
+    }
+
+    public function homeRouteFor(User $user): string
+    {
+        foreach (RouteConstants::HOME_BY_ROLE as $role => $route) {
+            if ($user->hasRole($role) && Route::has($route)) {
+                return $route;
+            }
+        }
+
+        return RouteConstants::DEFAULT_HOME;
+    }
+
+    private function linkGoogleAccount(User $user, object $googleUser): User
+    {
+        if (filled($user->provider)) {
+            return $user;
+        }
+
+        return $this->users->update($user, [
+            'provider'    => UserConstants::PROVIDER_GOOGLE,
+            'provider_id' => $googleUser->getId(),
+            'avatar'      => $googleUser->getAvatar(),
+        ]);
     }
 
     private function initializeCandidate(User $user): void

@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResumeController;
 use App\Enums\UserRole;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', fn () => view('welcome'));
 
@@ -65,6 +66,13 @@ Route::middleware(['auth', 'role:' . UserRole::RECRUITER->value])->group(functio
 Route::middleware(['auth', 'role:' . UserRole::ADMIN->value])->group(function (): void {
     Route::post('/admin/jobs/{job}/approve', [JobPostController::class, 'approve'])->name('jobs.approve');
     Route::post('/admin/jobs/{job}/reject', [JobPostController::class, 'reject'])->name('jobs.reject');
+});
+
+Route::middleware(['auth', 'role:' . UserRole::ADMIN->value])
+->prefix('admin')
+->name('admin.')
+->group(function (): void {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

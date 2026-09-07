@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Resume extends Model
 {
@@ -22,7 +23,7 @@ class Resume extends Model
     protected $casts = [
         'is_default' => 'boolean',
     ];    
-    public function candidateProfile()
+    public function candidateProfile(): BelongsTo
     {
         return $this->belongsTo(CandidateProfile::class);
     }

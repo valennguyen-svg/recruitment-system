@@ -17,6 +17,8 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\UserRepository;
 use App\Repositories\Contracts\JobCategoryRepositoryInterface;
 use App\Repositories\Eloquent\JobCategoryRepository;
+use App\Repositories\Contracts\DashboardRepositoryInterface;
+use App\Repositories\Eloquent\DashboardRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -31,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
         AuditLogRepositoryInterface::class => AuditLogRepository::class,
         UserRepositoryInterface::class => UserRepository::class,
         JobCategoryRepositoryInterface::class => JobCategoryRepository::class,
+        DashboardRepositoryInterface::class => DashboardRepository::class,
     ];
 
     public function register(): void

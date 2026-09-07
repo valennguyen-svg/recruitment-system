@@ -1,62 +1,47 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-label for="email" :value="__('auth.fields.email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                          :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
+            <x-input-label for="password" :value="__('auth.fields.password')" />
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                          required autocomplete="current-password" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <input id="remember_me" type="checkbox" name="remember"
+                       class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
+                <span class="ms-2 text-sm text-gray-600">{{ __('auth.fields.remember_me') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                   href="{{ route('password.request') }}">
+                    {{ __('auth.actions.forgot_password') }}
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <x-primary-button class="ms-3">{{ __('auth.actions.login') }}</x-primary-button>
         </div>
 
-        <div class="mt-4 text-center">
-          <p class="text-sm text-gray-500 mb-2">Hoặc</p>
-          <a href="{{ route('google.redirect') }}"
-               class="inline-flex items-center justify-center gap-2 w-full border rounded-md py-2 hover:bg-gray-50">
-                  <img src="https://www.google.com/favicon.ico" class="w-4 h-4" alt="google">
-                    Đăng nhập bằng Google
-           </a>
-         </div>
-         <div class="mt-6 text-center">
-    <a href="{{ route('register') }}"
-       class="inline-flex items-center justify-center w-full border border-indigo-600 text-indigo-600 rounded-md py-2 hover:bg-indigo-50">
-        Create a new account
-    </a>
-</div>
+        <div class="mt-6 pt-6 border-t text-center">
+            <a href="{{ route('google.redirect') }}"
+               class="inline-block text-sm text-gray-600 hover:text-gray-900 underline">
+                {{ __('auth.actions.login_google') }}
+            </a>
+        </div>
     </form>
 </x-guest-layout>

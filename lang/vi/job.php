@@ -72,6 +72,7 @@ return [
         'oldest'=> 'Cũ nhất',
         'salary_desc'=> 'Lương cao nhất',
         'deadline'=> 'Sắp hết hạn',
+        'popular'=>'Xem nhiều nhất',
     ],
 
     'actions' => [

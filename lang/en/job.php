@@ -73,6 +73,7 @@ return [
         'oldest'=> 'Oldest',
         'salary_desc'=> 'Highest salary',
         'deadline' => 'Closing soon',
+        'popular'=>'Most view',
     ],
 
     'actions' => [

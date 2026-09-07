@@ -2,14 +2,13 @@
 
 namespace App\Http\Requests\Profile;
 
-use App\Constants\UserConstants;
+use App\Constants\AuthConstants;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 
-class UpdatePasswordRequest extends FormRequest
+class UpdateProfileRequest extends FormRequest
 {
-    protected $errorBag = UserConstants::ERROR_BAG_PASSWORD;
-
     public function authorize(): bool
     {
         return $this->user() !== null;
@@ -18,8 +17,12 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'current_password' => ['required', 'current_password'],
-            'password'         => ['required', 'confirmed', Password::defaults()],
+            'name'=> ['required', 'string', 'max:' . AuthConstants::NAME_MAX_LENGTH],
+            'email'=> [
+                'required', 'string', 'lowercase', 'email',
+                'max:' . AuthConstants::EMAIL_MAX_LENGTH,
+                Rule::unique(User::class)->ignore($this->user()->getKey()),
+            ],
         ];
     }
 

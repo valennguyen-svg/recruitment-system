@@ -28,4 +28,18 @@ class ResumeRepository extends BaseRepository implements ResumeRepositoryInterfa
         return $profile !== null
             && $resume->candidate_profile_id === $profile->getKey();
     }
+    public function latestFor(CandidateProfile $profile): ?Resume
+    {
+        return $this->model->newQuery()
+            ->where('candidate_profile_id', $profile->getKey())
+            ->latest()
+            ->first();
+    }
+
+    public function clearDefaultFor(int $candidateProfileId): void
+    {
+        $this->model->newQuery()
+            ->where('candidate_profile_id', $candidateProfileId)
+            ->update(['is_default' => false]);
+    }
 }

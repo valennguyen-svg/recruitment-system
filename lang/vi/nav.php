@@ -9,4 +9,6 @@ return [
     'admin'=> 'Quản trị',
     'logout'=> 'Đăng xuất',
     'notifications'=> 'Thông báo',
+    'applied' => 'Hồ sơ đã nộp',
+    'loggin_in'=>'Bạn đã đăng nhập',
 ];

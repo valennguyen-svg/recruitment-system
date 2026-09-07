@@ -32,7 +32,6 @@ class JobSearchRequest extends FormRequest
         return __('job.attributes');
     }
 
-    /** @return array<string, mixed> */
     public function filters(): array
     {
         $validated = $this->safe()->all();
