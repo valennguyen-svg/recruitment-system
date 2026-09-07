@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('application_status_logs', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('application_id')->constrained()->cascadeOnDelete();
-        $table->foreignId('changed_by')->constrained('users');
-        $table->string('from_status')->nullable();
-        $table->string('to_status');
-        $table->text('note')->nullable();
-        $table->timestamp('created_at')->useCurrent();
-    });
+            $table->id();
+            $table->foreignId('application_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('changed_by')->constrained('users');
+            $table->string('from_status')->nullable();
+            $table->string('to_status');
+            $table->text('note')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+        });
     }
 
     /**

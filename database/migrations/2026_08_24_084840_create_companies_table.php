@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('companies', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-    $table->string('name');
-    $table->string('slug')->unique();
-    $table->text('description')->nullable();
-    $table->string('logo')->nullable();
-    $table->string('website')->nullable();
-    $table->string('address')->nullable();
-    $table->string('city')->nullable();
-    $table->timestamps();
-});
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('website')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->timestamps();
+        });
     }
-   
 
     /**
      * Reverse the migrations.

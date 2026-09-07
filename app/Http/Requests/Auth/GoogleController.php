@@ -14,7 +14,7 @@ class GoogleController extends Controller
 {
     public function __construct(
         private readonly AuthService $auth,
-    ){}
+    ) {}
 
     public function redirect(): SymfonyRedirect
     {
@@ -26,10 +26,10 @@ class GoogleController extends Controller
         $googleUser = Socialite::driver(UserConstants::PROVIDER_GOOGLE)->stateless()->user();
         $user = $this->auth->findOrCreateFromGoogle($googleUser);
 
-        if(! $user->is_active){
+        if (! $user->is_active) {
             return redirect()
-            ->route('login')
-            ->withErrors(['email' => __('auth.account_locked')]);
+                ->route('login')
+                ->withErrors(['email' => __('auth.account_locked')]);
         }
 
         Auth::login($user, remember: true);

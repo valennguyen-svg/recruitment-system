@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Company>
@@ -18,12 +20,13 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         $name = fake()->company();
+
         return [
-            'user_id'=> \App\Models\User::factory(),
-            'name'=>$name,
-            'slug'=>\Illuminate\Support\Str::slug($name). '_'. fake()->unique()->numberBetween(1, 9999),
-            'description'=>fake()->paragraph(),
-            'city'=>fake()->randomElement(['Hồ Chí Mình', 'Hà Nội', 'Đà Nẵng']),
+            'user_id' => User::factory(),
+            'name' => $name,
+            'slug' => Str::slug($name).'_'.fake()->unique()->numberBetween(1, 9999),
+            'description' => fake()->paragraph(),
+            'city' => fake()->randomElement(['Hồ Chí Mình', 'Hà Nội', 'Đà Nẵng']),
         ];
     }
 }

@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('candidate_profiles', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
-        $table->string('headline')->nullable();
-        $table->text('summary')->nullable();
-        $table->json('skills')->nullable();
-        $table->unsignedTinyInteger('experience_years')->default(0);
-        $table->string('education')->nullable();
-        $table->date('date_of_birth')->nullable();
-        $table->string('address')->nullable();
-        $table->timestamps();
-    });
+        Schema::create('candidate_profiles', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->unique()->constrained()->cascadeOnDelete();
+            $table->string('headline')->nullable();
+            $table->text('summary')->nullable();
+            $table->json('skills')->nullable();
+            $table->unsignedTinyInteger('experience_years')->default(0);
+            $table->string('education')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('address')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**

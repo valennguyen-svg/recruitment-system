@@ -1,6 +1,6 @@
 <?php
 
-return[
-    'previous'=>'&laquo; Trước',
-    'next'=>'Sau &raquo',
+return [
+    'previous' => '&laquo; Trước',
+    'next' => 'Sau &raquo',
 ];

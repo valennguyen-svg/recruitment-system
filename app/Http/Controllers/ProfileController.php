@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Profile\DeleteUserRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Services\ApplicationService;
 use App\Services\CandidateProfileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use App\Http\Requests\Profile\DeleteUserRequest;
 
 class ProfileController extends Controller
 {
@@ -20,7 +19,7 @@ class ProfileController extends Controller
 
     public function edit(Request $request): View
     {
-        $user      = $request->user();
+        $user = $request->user();
         $candidate = $user->candidateProfile;
 
         if ($candidate !== null) {
@@ -28,8 +27,8 @@ class ProfileController extends Controller
         }
 
         return view('profile.edit', [
-            'user'         => $user,
-            'candidate'    => $candidate,
+            'user' => $user,
+            'candidate' => $candidate,
             'applications' => $this->applications->listForProfile($candidate),
         ]);
     }

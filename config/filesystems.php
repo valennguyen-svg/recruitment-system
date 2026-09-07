@@ -47,10 +47,10 @@ return [
             'report' => false,
         ],
         'resumes' => [
-        'driver' => 'local',
-        'root' => storage_path('app/private/resumes'),
-        'visibility' => 'private',
-            ],
+            'driver' => 'local',
+            'root' => storage_path('app/private/resumes'),
+            'visibility' => 'private',
+        ],
 
         's3' => [
             'driver' => 's3',

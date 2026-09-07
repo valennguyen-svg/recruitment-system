@@ -6,10 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void {
-    Schema::table('job_posts', fn (Blueprint $t) => $t->date('deadline')->nullable()->change());
-}
-public function down(): void {
-    Schema::table('job_posts', fn (Blueprint $t) => $t->date('deadline')->nullable(false)->change());
-}
+    public function up(): void
+    {
+        Schema::table('job_posts', fn (Blueprint $t) => $t->date('deadline')->nullable()->change());
+    }
+
+    public function down(): void
+    {
+        Schema::table('job_posts', fn (Blueprint $t) => $t->date('deadline')->nullable(false)->change());
+    }
 };

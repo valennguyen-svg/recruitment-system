@@ -8,6 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class DeleteUserRequest extends FormRequest
 {
     protected $errorBag = UserConstants::ERROR_BAG_DELETION;
+
     public function authorize(): bool
     {
         return $this->user() !== null;
@@ -15,11 +16,11 @@ class DeleteUserRequest extends FormRequest
 
     public function rules(): array
     {
-        return[
-            'password'=>['required', 'current_password'],
+        return [
+            'password' => ['required', 'current_password'],
         ];
     }
-    
+
     public function attributes(): array
     {
         return __('auth.attributes');

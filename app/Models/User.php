@@ -9,13 +9,22 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, HasFactory;
+    use HasFactory, HasRoles, Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password', 'provider', 'provider_id', 'avatar', 'phone', 'is_active',
+        'name',
+        'email',
+        'password',
+        'provider',
+        'provider_id',
+        'avatar',
+        'phone',
+        'is_active',
     ];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token'];
 
     protected function casts(): array
     {

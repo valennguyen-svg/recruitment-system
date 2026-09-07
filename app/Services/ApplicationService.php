@@ -37,10 +37,10 @@ class ApplicationService
 
             return $this->applications->create([
                 'candidate_profile_id' => $profile->getKey(),
-                'job_post_id'          => $job->getKey(),
-                'resume_id'            => $data['resume_id'],
-                'cover_letter'         => $data['cover_letter'] ?? null,
-                'status'               => ApplicationStatus::APPLIED,
+                'job_post_id' => $job->getKey(),
+                'resume_id' => $data['resume_id'],
+                'cover_letter' => $data['cover_letter'] ?? null,
+                'status' => ApplicationStatus::APPLIED,
             ]);
         });
     }
@@ -51,14 +51,14 @@ class ApplicationService
             throw ValidationException::withMessages([
                 'status' => __('application.messages.invalid_transition', [
                     'from' => $application->status->label(),
-                    'to'   => $target->label(),
+                    'to' => $target->label(),
                 ]),
             ]);
         }
 
         return $this->applications->update($application, [
             'status' => $target,
-            'note'   => $note,
+            'note' => $note,
         ]);
     }
 }

@@ -11,7 +11,14 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'name', 'slug', 'description', 'logo', 'website', 'address', 'city',
+        'user_id',
+        'name',
+        'slug',
+        'description',
+        'logo',
+        'website',
+        'address',
+        'city',
     ];
 
     public function user()
@@ -23,5 +30,4 @@ class Company extends Model
     {
         return $this->hasMany(JobPost::class);
     }
-   
 }

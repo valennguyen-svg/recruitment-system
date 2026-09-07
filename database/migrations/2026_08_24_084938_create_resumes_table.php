@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('mime_type');
             $table->unsignedBigInteger('size');
             $table->boolean('is_default')->default(false);
-             $table->timestamps();
+            $table->timestamps();
         });
     }
 

@@ -9,12 +9,19 @@ enum ApplicationStatus: string
     case INTERVIEW = 'interview';
     case OFFER = 'offer';
     case HIRED = 'hired';
-    case REJECTED  = 'rejected';
+    case REJECTED = 'rejected';
     case WITHDRAWN = 'withdrawn';
 
     public function label(): string
     {
-        return __('enums.application_status.' . $this->value);
+        return __(match ($this) {
+            self::APPLIED => 'Applied',
+            self::REVIEWING => 'Reviewing',
+            self::INTERVIEWING => 'Interviewing',
+            self::OFFERED => 'Offer sent',
+            self::HIRED => 'Hired',
+            self::REJECTED => 'Rejected',
+        });
     }
 
     public function badgeClass(): string

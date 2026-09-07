@@ -20,7 +20,7 @@ class CandidateProfileController extends Controller
         $user = $request->user();
 
         return view('candidate.cv-form', [
-            'user'    => $user,
+            'user' => $user,
             'profile' => $this->profiles->forUser($user),
         ]);
     }

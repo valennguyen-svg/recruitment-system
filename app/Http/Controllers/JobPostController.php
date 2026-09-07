@@ -23,7 +23,7 @@ class JobPostController extends Controller
     public function index(JobSearchRequest $request): View
     {
         return view('jobs.index', [
-            'jobs'       => $this->jobPostService->search(
+            'jobs' => $this->jobPostService->search(
                 $request->filters(),
                 $request->sortOption(),
             ),

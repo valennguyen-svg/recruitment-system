@@ -15,7 +15,7 @@ class RejectJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'reason' => ['required', 'string', 'max:' . JobPostConstants::REJECT_REASON_MAX],
+            'reason' => ['required', 'string', 'max:'.JobPostConstants::REJECT_REASON_MAX],
         ];
     }
 

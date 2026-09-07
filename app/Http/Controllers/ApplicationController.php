@@ -26,7 +26,7 @@ class ApplicationController extends Controller
         ]);
     }
 
-        public function store(StoreApplicationRequest $request, JobPost $jobPost): RedirectResponse
+    public function store(StoreApplicationRequest $request, JobPost $jobPost): RedirectResponse
     {
         $this->applications->apply(
             $request->user()->candidateProfile,

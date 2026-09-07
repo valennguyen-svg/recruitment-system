@@ -1,0 +1,35 @@
+{
+    "Full-time": "Toàn thời gian",
+    "Part-time": "Bán thời gian",
+    "Contract": "Hợp đồng",
+    "Internship": "Thực tập",
+    "Freelance": "Tự do",
+
+    "Draft": "Bản nháp",
+    "Pending review": "Chờ duyệt",
+    "Published": "Đang tuyển",
+    "Rejected": "Bị từ chối",
+    "Closed": "Đã đóng",
+
+    "Applied": "Đã nộp",
+    "Reviewing": "Đang xem xét",
+    "Interviewing": "Phỏng vấn",
+    "Offer sent": "Đã đề nghị",
+    "Hired": "Đã tuyển",
+
+    "Newest": "Mới nhất",
+    "Oldest": "Cũ nhất",
+    "Highest salary": "Lương cao nhất",
+    "Closing soon": "Sắp hết hạn",
+    "Most viewed": "Xem nhiều nhất",
+
+    "Intern": "Thực tập sinh",
+    "Junior": "Junior",
+    "Middle": "Middle",
+    "Senior": "Senior",
+    "Lead": "Trưởng nhóm",
+
+    "Administrator": "Quản trị viên",
+    "Recruiter": "Nhà tuyển dụng",
+    "Candidate": "Ứng viên"
+}

@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationStatusLog extends Model
 {
     protected $fillable = [
-        'application_id', 'from_status', 'to_status', 'changed_by', 'note',
+        'application_id',
+        'from_status',
+        'to_status',
+        'changed_by',
+        'note',
     ];
 
     public function application()

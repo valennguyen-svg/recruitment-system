@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('job_post_id')->constrained()->cascadeOnDelete();
-        $table->foreignId('candidate_profile_id')->constrained()->cascadeOnDelete();
-        $table->foreignId('resume_id')->constrained();
-        $table->enum('status', [
-            'applied', 'screening', 'interview', 'offer', 'hired', 'rejected', 'withdrawn'
-        ])->default('applied');
-        $table->text('cover_letter')->nullable();
-        $table->timestamp('applied_at')->useCurrent();
-        $table->timestamps();
+            $table->id();
+            $table->foreignId('job_post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('candidate_profile_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('resume_id')->constrained();
+            $table->enum('status', [
+                'applied', 'screening', 'interview', 'offer', 'hired', 'rejected', 'withdrawn',
+            ])->default('applied');
+            $table->text('cover_letter')->nullable();
+            $table->timestamp('applied_at')->useCurrent();
+            $table->timestamps();
 
-        $table->unique(['job_post_id', 'candidate_profile_id']);
-    });
-      
+            $table->unique(['job_post_id', 'candidate_profile_id']);
+        });
+
     }
 
     /**

@@ -17,7 +17,7 @@ class UpdateApplicationStatusRequest extends FormRequest
     {
         return [
             'status' => ['required', Rule::enum(ApplicationStatus::class)],
-            'note'   => ['nullable', 'string', 'max:1000'],
+            'note' => ['nullable', 'string', 'max:1000'],
         ];
     }
 

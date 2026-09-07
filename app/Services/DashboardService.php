@@ -15,26 +15,20 @@ class DashboardService
         private readonly DashboardRepositoryInterface $dashboard,
     ) {}
 
-    /** Các con số tổng quan đầu trang. */
     public function overview(): array
     {
         $jobsByStatus = $this->dashboard->countJobsByStatus();
 
         return [
-            'total_jobs'       => $this->dashboard->countJobs(),
-            'published_jobs'   => (int) $jobsByStatus->get(JobStatus::PUBLISHED->value, 0),
-            'pending_jobs'     => (int) $jobsByStatus->get(JobStatus::PENDING_REVIEW->value, 0),
-            'total_apps'       => $this->dashboard->countApplications(),
-            'total_companies'  => $this->dashboard->countCompanies(),
+            'total_jobs' => $this->dashboard->countJobs(),
+            'published_jobs' => (int) $jobsByStatus->get(JobStatus::PUBLISHED->value, 0),
+            'pending_jobs' => (int) $jobsByStatus->get(JobStatus::PENDING_REVIEW->value, 0),
+            'total_apps' => $this->dashboard->countApplications(),
+            'total_companies' => $this->dashboard->countCompanies(),
             'total_candidates' => $this->dashboard->countUsersByRole(UserRole::CANDIDATE),
         ];
     }
 
-    /**
-     * Số tin theo trạng thái, trả về mảng đã gắn nhãn đa ngôn ngữ.
-     *
-     * @return array<string, array{label: string, count: int}>
-     */
     public function jobsByStatus(): array
     {
         $counts = $this->dashboard->countJobsByStatus();

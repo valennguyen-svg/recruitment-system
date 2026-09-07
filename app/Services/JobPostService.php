@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Constants\JobPostConstants;
 use App\Enums\SortOption;
+use App\Models\JobCategory;
 use App\Models\JobPost;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -22,21 +23,26 @@ class JobPostService
 
     public function relatedTo(JobPost $job): Collection
     {
-         return $this->jobs->relatedTo($job, JobPostConstants::RELATED_LIMIT);
+        return $this->jobs->relatedTo($job, JobPostConstants::RELATED_LIMIT);
     }
+
     public function categories(): Collection
     {
-        return \App\Models\JobCategory::orderBy('name')->get();
+        return JobCategory::orderBy('name')->get();
     }
+
     public function loadDetail(JobPost $job): JobPost
     {
         $this->jobs->incrementViews($job);
+
         return $this->jobs->loadDetail($job);
     }
+
     public function prepareDetail(JobPost $job): Collection
     {
         $this->jobs->incrementViews($job);
         $this->jobs->loadDetail($job);
+
         return $this->relatedTo($job);
     }
 }

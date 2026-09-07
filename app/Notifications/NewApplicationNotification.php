@@ -41,10 +41,10 @@ class NewApplicationNotification extends Notification implements ShouldQueue
         return [
             'application_id' => $this->application->getKey(),
             'message' => __('notification.new_application.short', [
-                'name'=> $this->candidateName(),
+                'name' => $this->candidateName(),
                 'job' => $this->application->jobPost->title,
             ]),
-            'url'            => route('jobs.show', $this->application->jobPost),
+            'url' => route('jobs.show', $this->application->jobPost),
         ];
     }
 

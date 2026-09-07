@@ -5,25 +5,23 @@ namespace App\Providers;
 use App\Repositories\Contracts\ApplicationRepositoryInterface;
 use App\Repositories\Contracts\AuditLogRepositoryInterface;
 use App\Repositories\Contracts\CandidateProfileRepositoryInterface;
+use App\Repositories\Contracts\DashboardRepositoryInterface;
+use App\Repositories\Contracts\JobCategoryRepositoryInterface;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use App\Repositories\Contracts\ResumeRepositoryInterface;
+use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\ApplicationRepository;
 use App\Repositories\Eloquent\AuditLogRepository;
 use App\Repositories\Eloquent\CandidateProfileRepository;
+use App\Repositories\Eloquent\DashboardRepository;
+use App\Repositories\Eloquent\JobCategoryRepository;
 use App\Repositories\Eloquent\JobPostRepository;
 use App\Repositories\Eloquent\ResumeRepository;
-use Illuminate\Support\ServiceProvider;
-use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Eloquent\UserRepository;
-use App\Repositories\Contracts\JobCategoryRepositoryInterface;
-use App\Repositories\Eloquent\JobCategoryRepository;
-use App\Repositories\Contracts\DashboardRepositoryInterface;
-use App\Repositories\Eloquent\DashboardRepository;
-
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    
     /** @var array<class-string, class-string> */
     private const BINDINGS = [
         CandidateProfileRepositoryInterface::class => CandidateProfileRepository::class,

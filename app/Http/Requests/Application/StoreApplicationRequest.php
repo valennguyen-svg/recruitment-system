@@ -24,7 +24,7 @@ class StoreApplicationRequest extends FormRequest
             ],
             'cover_letter' => [
                 'nullable', 'string',
-                'max:' . ApplicationConstants::COVER_LETTER_MAX_LENGTH,
+                'max:'.ApplicationConstants::COVER_LETTER_MAX_LENGTH,
             ],
         ];
     }

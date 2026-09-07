@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\JobCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<JobCategory>
@@ -20,9 +21,10 @@ class JobCategoryFactory extends Factory
         $name = fake()->unique()->randomElement([
             'IT Phần Mềm', 'Kinh doanh', 'Marketing', 'Kế toán', 'Nhân sự', 'Thiết kế', 'Chăm sóc khách hàng', 'Logistics',
         ]);
+
         return [
-            'name'=>$name,
-            'slug'=>\Illuminate\Support\Str::slug($name),
+            'name' => $name,
+            'slug' => Str::slug($name),
         ];
     }
 }

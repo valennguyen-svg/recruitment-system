@@ -19,20 +19,20 @@ class StoreJobPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=> ['required', 'string', 'max:' . JobPostConstants::TITLE_MAX],
-            'category_id'=> ['required', 'integer', 'exists:categories,id'],
-            'location'=> ['required', 'string', 'max:' . JobPostConstants::LOCATION_MAX],
-            'employment_type'=> ['required', Rule::enum(EmploymentType::class)],
-            'experience_level'=> ['required', Rule::enum(ExperienceLevel::class)],
-            'salary_min'=> ['nullable', 'integer', 'min:0'],
-            'salary_max'=> ['nullable', 'integer', 'gte:salary_min'],
-            'quantity'=> ['required', 'integer', 'min:' . JobPostConstants::QUANTITY_MIN],
-            'description'=> ['required', 'string'],
-            'requirements'=> ['required', 'string'],
-            'benefits'=> ['nullable', 'array'],
-            'benefits.*'=> ['string', 'max:' . JobPostConstants::BENEFIT_MAX],
+            'title' => ['required', 'string', 'max:'.JobPostConstants::TITLE_MAX],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
+            'location' => ['required', 'string', 'max:'.JobPostConstants::LOCATION_MAX],
+            'employment_type' => ['required', Rule::enum(EmploymentType::class)],
+            'experience_level' => ['required', Rule::enum(ExperienceLevel::class)],
+            'salary_min' => ['nullable', 'integer', 'min:0'],
+            'salary_max' => ['nullable', 'integer', 'gte:salary_min'],
+            'quantity' => ['required', 'integer', 'min:'.JobPostConstants::QUANTITY_MIN],
+            'description' => ['required', 'string'],
+            'requirements' => ['required', 'string'],
+            'benefits' => ['nullable', 'array'],
+            'benefits.*' => ['string', 'max:'.JobPostConstants::BENEFIT_MAX],
             'deadline' => ['required', 'date', 'after:today'],
-            'status'=> ['required', Rule::enum(JobStatus::class)],
+            'status' => ['required', Rule::enum(JobStatus::class)],
         ];
     }
 

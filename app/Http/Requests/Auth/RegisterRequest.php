@@ -13,21 +13,23 @@ class RegisterRequest extends FormRequest
     {
         return true;
     }
+
     public function rules(): array
     {
         return [
-            'name'=>['required', 'string', 'max:' . AuthConstants::NAME_MAX_LENGTH],
-            'email'=>[
+            'name' => ['required', 'string', 'max:'.AuthConstants::NAME_MAX_LENGTH],
+            'email' => [
                 'required', 'string', 'lowercase', 'email',
-                'max:' . AuthConstants::EMAIL_MAX_LENGTH,
-                'unique:' . User::class,
+                'max:'.AuthConstants::EMAIL_MAX_LENGTH,
+                'unique:'.User::class,
             ],
-            'password'=>['required', 'confirmed', Password::defaults()],
+            'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
+
     public function attributes(): array
     {
         return __('auth.attributes');
-        
+
     }
 }

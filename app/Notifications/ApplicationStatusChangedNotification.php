@@ -33,7 +33,7 @@ class ApplicationStatusChangedNotification extends Notification implements Shoul
             ->subject(__('notification.application_status.subject', ['job' => $job->title]))
             ->greeting(__('notification.common.greeting', ['name' => $notifiable->name]))
             ->line(__('notification.application_status.line', [
-                'job'    => $job->title,
+                'job' => $job->title,
                 'status' => $this->toStatus->label(),
             ]));
 
@@ -52,10 +52,10 @@ class ApplicationStatusChangedNotification extends Notification implements Shoul
         return [
             'application_id' => $this->application->getKey(),
             'from' => $this->fromStatus->value,
-            'to'=> $this->toStatus->value,
+            'to' => $this->toStatus->value,
             'message' => __('notification.application_status.short', [
-            'job' => $this->application->jobPost->title,
-            'status'=> $this->toStatus->label(),
+                'job' => $this->application->jobPost->title,
+                'status' => $this->toStatus->label(),
             ]),
             'url' => route('applications.index'),
         ];

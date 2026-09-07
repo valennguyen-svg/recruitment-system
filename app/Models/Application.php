@@ -24,7 +24,7 @@ class Application extends Model
     {
         return [
             'applied_at' => 'datetime',
-            'status'     =>ApplicationStatus::class,
+            'status' => ApplicationStatus::class,
         ];
     }
 

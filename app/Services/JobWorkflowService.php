@@ -57,7 +57,7 @@ class JobWorkflowService
 
             match ($to) {
                 JobStatus::PUBLISHED => $job->creator?->notify(new JobApprovedNotification($job)),
-                JobStatus::REJECTED  => $job->creator?->notify(new JobRejectedNotification($job, $reason)),
+                JobStatus::REJECTED => $job->creator?->notify(new JobRejectedNotification($job, $reason)),
                 default => null,
             };
 

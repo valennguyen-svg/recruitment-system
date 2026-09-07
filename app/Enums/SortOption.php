@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 enum SortOption: string
 {
-    case NEWEST='newest';
-    case OLDEST='oldest';
-    case SALARY_HIGH='salary_high';
-    case DEADLINE='deadline';
-    case POPULAR='popular';
+    case NEWEST = 'newest';
+    case OLDEST = 'oldest';
+    case SALARY_HIGH = 'salary_high';
+    case DEADLINE = 'deadline';
+    case POPULAR = 'popular';
 
     public function label(): string
     {
-        return __('job.sort.' . $this->value);
+        return __('job.sort.'.$this->value);
     }
 
     public function apply(Builder $query): Builder
@@ -23,8 +23,8 @@ enum SortOption: string
             self::NEWEST => $query->orderByDesc('published_at'),
             self::OLDEST => $query->orderBy('published_at'),
             self::SALARY_HIGH => $query->orderByRaw('salary_max DESC NULLS LAST'),
-            self::DEADLINE=> $query->orderByRaw('deadline ASC NULLS LAST'),
-            self::POPULAR=> $query->orderByDesc('views_count'),
+            self::DEADLINE => $query->orderByRaw('deadline ASC NULLS LAST'),
+            self::POPULAR => $query->orderByDesc('views_count'),
         };
     }
 

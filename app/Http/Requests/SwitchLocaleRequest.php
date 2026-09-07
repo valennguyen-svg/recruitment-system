@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Requests;
 
@@ -12,7 +12,7 @@ class SwitchLocaleRequest extends FormRequest
     {
         return true;
     }
-     
+
     public function rules(): array
     {
         return [

@@ -65,7 +65,7 @@ class DashboardRepository implements DashboardRepositoryInterface
     {
         return JobPost::query()
             ->select(
-                DB::raw("to_char(date_trunc('month', created_at), '" . self::MONTH_LABEL_FORMAT . "') as label"),
+                DB::raw("to_char(date_trunc('month', created_at), '".self::MONTH_LABEL_FORMAT."') as label"),
                 DB::raw("date_trunc('month', created_at) as bucket"),
                 DB::raw('count(*) as total'),
             )

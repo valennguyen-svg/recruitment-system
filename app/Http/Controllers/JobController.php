@@ -16,7 +16,7 @@ class JobController extends Controller
     public function index(JobSearchRequest $request): View
     {
         return view('jobs.index', [
-            'jobs'       => $this->jobs->search($request->filters(), $request->sortOption()),
+            'jobs' => $this->jobs->search($request->filters(), $request->sortOption()),
             'categories' => $this->jobs->categories(),
         ]);
     }
@@ -24,7 +24,7 @@ class JobController extends Controller
     public function show(JobPost $job): View
     {
         return view('jobs.show', [
-            'job'     => $this->jobs->loadDetail($job),
+            'job' => $this->jobs->loadDetail($job),
             'related' => $this->jobs->relatedTo($job),
         ]);
     }

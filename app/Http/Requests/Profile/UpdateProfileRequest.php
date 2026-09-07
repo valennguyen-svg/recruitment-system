@@ -17,10 +17,10 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> ['required', 'string', 'max:' . AuthConstants::NAME_MAX_LENGTH],
-            'email'=> [
+            'name' => ['required', 'string', 'max:'.AuthConstants::NAME_MAX_LENGTH],
+            'email' => [
                 'required', 'string', 'lowercase', 'email',
-                'max:' . AuthConstants::EMAIL_MAX_LENGTH,
+                'max:'.AuthConstants::EMAIL_MAX_LENGTH,
                 Rule::unique(User::class)->ignore($this->user()->getKey()),
             ],
         ];

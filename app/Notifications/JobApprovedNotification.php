@@ -31,10 +31,10 @@ class JobApprovedNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'job_id'  => $this->job->getKey(),
-            'title'   => $this->job->title,
+            'job_id' => $this->job->getKey(),
+            'title' => $this->job->title,
             'message' => __('notification.job_approved.short', ['job' => $this->job->title]),
-            'url'     => route('jobs.show', $this->job),
+            'url' => route('jobs.show', $this->job),
         ];
     }
 }

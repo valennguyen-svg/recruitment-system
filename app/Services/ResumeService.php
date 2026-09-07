@@ -23,10 +23,10 @@ class ResumeService
 
             return $this->resumes->create([
                 'candidate_profile_id' => $profile->getKey(),
-                'title'                => $data['title'],
-                'file_path'            => $this->storeFile($file),
-                'original_name'        => $file->getClientOriginalName(),
-                'is_default'           => $isFirst,
+                'title' => $data['title'],
+                'file_path' => $this->storeFile($file),
+                'original_name' => $file->getClientOriginalName(),
+                'is_default' => $isFirst,
             ]);
         });
     }
@@ -39,7 +39,7 @@ class ResumeService
             if ($file !== null) {
                 $this->deleteFile($resume);
 
-                $payload['file_path']     = $this->storeFile($file);
+                $payload['file_path'] = $this->storeFile($file);
                 $payload['original_name'] = $file->getClientOriginalName();
             }
 
@@ -51,7 +51,7 @@ class ResumeService
     {
         DB::transaction(function () use ($resume): void {
             $wasDefault = $resume->is_default;
-            $profile    = $resume->candidateProfile;
+            $profile = $resume->candidateProfile;
 
             $this->deleteFile($resume);
             $this->resumes->delete($resume);

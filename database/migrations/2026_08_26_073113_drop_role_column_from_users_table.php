@@ -19,6 +19,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', fn(Blueprint $t)=> $t->string('role')->default('candidate'));
+        Schema::table('users', fn (Blueprint $t) => $t->string('role')->default('candidate'));
     }
 };

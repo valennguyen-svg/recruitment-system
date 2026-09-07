@@ -22,11 +22,11 @@ class UpdateResumeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:' . ResumeConstants::TITLE_MAX_LENGTH],
-            'file'=> [
+            'title' => ['required', 'string', 'max:'.ResumeConstants::TITLE_MAX_LENGTH],
+            'file' => [
                 'nullable', 'file',
-                'mimes:' . ResumeConstants::ALLOWED_MIMES,
-                'max:' . ResumeConstants::MAX_SIZE_KB,
+                'mimes:'.ResumeConstants::ALLOWED_MIMES,
+                'max:'.ResumeConstants::MAX_SIZE_KB,
             ],
         ];
     }

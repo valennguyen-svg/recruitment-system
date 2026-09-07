@@ -16,23 +16,37 @@ class JobPost extends Model
     use HasFactory;
 
     protected $fillable = [
-        'company_id', 'category_id', 'created_by', 'title', 'slug', 'description',
-        'requirements', 'benefits', 'location', 'employment_type', 'salary_min',
-        'salary_max', 'salary_negotiable', 'status', 'rejection_reason',
-        'deadline', 'published_at',
+        'company_id',
+        'category_id',
+        'created_by',
+        'title',
+        'slug',
+        'description',
+        'requirements',
+        'benefits',
+        'location',
+        'employment_type',
+        'salary_min',
+        'salary_max',
+        'salary_negotiable',
+        'status',
+        'rejection_reason',
+        'deadline',
+        'published_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'employment_type'=>EmploymentType::class,
-            'experience_level'=>ExperienceLevel::class,
-            'status'=>JobStatus::class,
-            'benefits'=>'array',
-            'deadline'=>'date',
-            'published_at'=>'datetime',
+            'employment_type' => EmploymentType::class,
+            'experience_level' => ExperienceLevel::class,
+            'status' => JobStatus::class,
+            'benefits' => 'array',
+            'deadline' => 'date',
+            'published_at' => 'datetime',
         ];
     }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
@@ -131,7 +145,7 @@ class JobPost extends Model
             SortOption::OLDEST => $q->orderBy('published_at'),
             SortOption::SALARY_HIGH => $q->orderByRaw('salary_max DESC NULLS LAST'),
             SortOption::DEADLINE => $q->orderByRaw('deadline ASC NULLS LAST'),
-            SortOption::POPULAR  => $q->orderByDesc('views_count'),
+            SortOption::POPULAR => $q->orderByDesc('views_count'),
             SortOption::NEWEST => $q->orderByDesc('published_at'),
         };
     }
@@ -149,6 +163,6 @@ class JobPost extends Model
     {
         $clean = str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], self::normalize($keyword));
 
-        return '%' . $clean . '%';
+        return '%'.$clean.'%';
     }
 }

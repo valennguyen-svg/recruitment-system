@@ -13,7 +13,13 @@ enum JobStatus: string
 
     public function label(): string
     {
-        return __('enums.job_status.' . $this->value);
+        return __(match ($this) {
+            self::DRAFT => 'Draft',
+            self::PENDING_REVIEW => 'Pending review',
+            self::PUBLISHED => 'Published',
+            self::REJECTED => 'Rejected',
+            self::CLOSED => 'Closed',
+        });
     }
 
     /** @return self[] */
