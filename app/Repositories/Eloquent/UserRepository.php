@@ -3,6 +3,8 @@
 namespace App\Repositories\Eloquent;
 
 use App\Constants\AuthConstants;
+use App\Models\CandidateProfile;
+use App\Models\Resume;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Str;
@@ -27,5 +29,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         ])->save();
 
         return $user;
+    }
+     public function findForCandidate(int $resumeId, CandidateProfile $profile): ?Resume
+    {
+        return $this->model->newQuery()
+            ->where('candidate_profile_id', $profile->getKey())
+            ->find($resumeId);
     }
 }

@@ -11,11 +11,13 @@ use App\Repositories\Contracts\ApplicationRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use App\Repositories\Contracts\ResumeRepositoryInterface;
 
 class ApplicationService
 {
     public function __construct(
         private readonly ApplicationRepositoryInterface $applications,
+        private readonly ResumeRepositoryInterface $resumes,
     ) {}
 
     public function listForProfile(?CandidateProfile $profile): LengthAwarePaginator
@@ -26,7 +28,7 @@ class ApplicationService
         );
     }
 
-    public function apply(CandidateProfile $profile, JobPost $job, array $data): Application
+        public function apply(CandidateProfile $profile, JobPost $job, array $data): Application
     {
         return DB::transaction(function () use ($profile, $job, $data): Application {
             if ($this->applications->existsFor($profile, $job)) {
@@ -35,10 +37,13 @@ class ApplicationService
                 ]);
             }
 
+            $resume = $this->resumes->findForCandidate($data['resume_id'], $profile);
+
             return $this->applications->create([
                 'candidate_profile_id' => $profile->getKey(),
                 'job_post_id' => $job->getKey(),
-                'resume_id' => $data['resume_id'],
+                'resume_id' => $resume->getKey(),
+                'resume_snapshot' => $resume->toSnapshot(),
                 'cover_letter' => $data['cover_letter'] ?? null,
                 'status' => ApplicationStatus::APPLIED,
             ]);
@@ -59,6 +64,17 @@ class ApplicationService
         return $this->applications->update($application, [
             'status' => $target,
             'note' => $note,
+        ]);
+    }
+          /** Đếm số đơn ứng tuyển đã nộp. */
+    public function countForProfile(?CandidateProfile $profile): int
+    {
+        if ($profile === null) {
+            return 0;
+        }
+
+        return $this->applications->count([
+            'candidate_profile_id' => $profile->getKey(),
         ]);
     }
 }

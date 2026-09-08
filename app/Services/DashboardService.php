@@ -76,7 +76,7 @@ class DashboardService
     }
 
     /** Tỉ lệ đơn ứng tuyển dẫn đến trúng tuyển (%). */
-    public function hireRate(): float
+        public function hireRate(): float
     {
         $total = $this->dashboard->countApplications();
 
@@ -84,9 +84,6 @@ class DashboardService
             return 0.0;
         }
 
-        return round(
-            $this->dashboard->countHiredApplications() / $total * DashboardConstants::PERCENT_BASE,
-            DashboardConstants::PERCENT_PRECISION,
-        );
+        return round($this->dashboard->countHiredApplications() / $total * 100, 1);
     }
 }

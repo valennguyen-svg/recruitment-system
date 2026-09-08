@@ -12,7 +12,7 @@ class UpdatePasswordRequest extends FormRequest
 
     public function authorize(): bool
     {
-        return $this->user() !== null;
+        return $this->user()?->hasPassword() ?? false;
     }
 
     public function rules(): array

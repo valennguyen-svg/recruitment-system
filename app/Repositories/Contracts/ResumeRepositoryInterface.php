@@ -16,4 +16,6 @@ interface ResumeRepositoryInterface extends BaseRepositoryInterface
     public function latestFor(CandidateProfile $profile): ?Resume;
 
     public function clearDefaultFor(int $candidateProfileId): void;
+
+    public function findForCandidate(int $resumeId, CandidateProfile $profile): ?Resume;
 }

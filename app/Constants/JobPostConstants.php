@@ -28,5 +28,7 @@ final class JobPostConstants
 
     public const REJECT_REASON_MAX = 1000;
 
+    public const VIEW_DEDUPE_HOURS = 24;
+
     private function __construct() {}
 }

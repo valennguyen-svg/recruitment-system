@@ -9,6 +9,8 @@ return [
         'resume_file' => 'CV file',
         'applied' => 'Applications submitted',
         'profile' => 'Profile',
+        'create_cv' => 'Create new CV',
+        'edit_cv'   => 'Edit CV',
     ],
 
     'attributes' => [
@@ -55,6 +57,7 @@ return [
         'keep_old_cv' => 'Upload a new CV file. Existing CVs are kept.',
         'my_cv_desc' => 'CV files you uploaded and the information you filled in.',
         'existing_cv' => 'Existing CVs:',
+        'personal_desc' => 'Personal details shared across all your resumes.',
     ],
 
     'actions' => [
@@ -69,6 +72,9 @@ return [
         'cancel' => 'Cancel',
         'add_more' => '+ Add new CV',
         'save_changes' => 'Save changes',
+        'create_cv'   => 'Create CV',
+        'edit'        => 'Edit',
+        'set_default' => 'Set as default',
     ],
 
     'messages' => [
@@ -82,5 +88,7 @@ return [
         'confirm_delete' => 'Delete this CV?',
         'default_badge' => 'Default',
         'have_n_cv' => 'You have :count CV(s). Upload another one below.',
+        'default_set' => 'Default CV updated.',
+        'cv_updated'  => 'CV updated.',
     ],
 ];

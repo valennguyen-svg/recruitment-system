@@ -16,6 +16,7 @@ return [
         'unverified' => 'Your email address is unverified.',
         'resend' => 'Click here to re-send the verification email.',
         'link_sent' => 'A new verification link has been sent to your email address.',
+        'email_locked' => 'Your login email cannot be changed.',
     ],
 
     'actions' => [

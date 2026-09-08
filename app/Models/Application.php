@@ -25,6 +25,7 @@ class Application extends Model
         return [
             'applied_at' => 'datetime',
             'status' => ApplicationStatus::class,
+            'resumes_snapshot'=>'array',
         ];
     }
 
@@ -58,5 +59,9 @@ class Application extends Model
             'candidate_profile_id',
             'user_id',
         );
+    }
+     public function resumeTitle(): ?string
+    {
+        return $this->resume_snapshot['title'] ?? $this->resume?->title;
     }
 }

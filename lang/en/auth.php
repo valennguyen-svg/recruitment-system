@@ -14,6 +14,7 @@ return [
         'password' => 'password',
         'current_password' => 'current password',
         'token' => 'token',
+        'phone'=>'Phone number',
     ],
 
     'page' => [
@@ -33,6 +34,7 @@ return [
         'current_password' => 'Current password',
         'new_password' => 'New password',
         'remember_me' => 'Remember me',
+        'phone'=>'Phone number',
     ],
 
     'actions' => [

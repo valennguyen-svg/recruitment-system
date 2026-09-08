@@ -13,7 +13,7 @@ interface JobPostRepositoryInterface extends BaseRepositoryInterface
 
     public function relatedTo(JobPost $job, int $limit): Collection;
 
-    public function incrementViews(JobPost $job): void;
-
+    public function recordView(JobPost $job, ?int $userId, string $sessionId, ?string $ip): bool;
+    
     public function loadDetail(JobPost $job): JobPost;
 }

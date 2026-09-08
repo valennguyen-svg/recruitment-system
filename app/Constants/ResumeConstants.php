@@ -26,4 +26,9 @@ final class ResumeConstants
     {
         return (int) (self::MAX_SIZE_KB / self::KILOBYTES_PER_MEGABYTE);
     }
+        public const HEADLINE_MAX        = 255;
+    public const SKILLS_MAX          = 1000;
+    public const SKILLS_SEPARATOR    = ',';
+    public const EXPERIENCE_YEARS_MIN = 0;
+    public const EXPERIENCE_YEARS_MAX = 50;
 }

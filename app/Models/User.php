@@ -56,4 +56,13 @@ class User extends Authenticatable
             'id',
         );
     }
+    public function isSocialAccount(): bool
+    {
+        return filled($this->provider);
+    }
+
+    public function hasPassword():bool
+    {
+        return filled($this->password);
+    }
 }

@@ -15,8 +15,16 @@ class PasswordResetLinkController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function store(PasswordResetLinkRequest $request): RedirectResponse
+        public function store(PasswordResetLinkRequest $request): RedirectResponse
     {
+        $user = $this->users->findByEmail($request->validated('email'));
+
+        if ($user?->isSocialAccount()) {
+            return back()->withErrors([
+                'email' => __('auth.messages.use_social_login'),
+            ]);
+        }
+
         $status = Password::sendResetLink($request->only('email'));
 
         return $status === Password::RESET_LINK_SENT

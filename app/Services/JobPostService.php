@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Constants\JobPostConstants;
 use App\Enums\SortOption;
-use App\Models\JobCategory;
 use App\Models\JobPost;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -26,21 +25,20 @@ class JobPostService
         return $this->jobs->relatedTo($job, JobPostConstants::RELATED_LIMIT);
     }
 
-    public function categories(): Collection
-    {
-        return JobCategory::orderBy('name')->get();
-    }
-
     public function loadDetail(JobPost $job): JobPost
     {
-        $this->jobs->incrementViews($job);
-
         return $this->jobs->loadDetail($job);
     }
 
-    public function prepareDetail(JobPost $job): Collection
+    /**
+     * Ghi nhận lượt xem và trả về danh sách tin liên quan.
+     *
+     * @param  int|null  $userId     ID người xem, null nếu chưa đăng nhập
+     * @param  string    $sessionId  Dùng để chống đếm trùng với khách vãng lai
+     */
+    public function prepareDetail(JobPost $job, ?int $userId, string $sessionId, ?string $ip): Collection
     {
-        $this->jobs->incrementViews($job);
+        $this->jobs->recordView($job, $userId, $sessionId, $ip);
         $this->jobs->loadDetail($job);
 
         return $this->relatedTo($job);

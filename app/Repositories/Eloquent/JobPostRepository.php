@@ -9,6 +9,8 @@ use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use App\Constants\JobPostConstants;
+use App\Models\JobPostView;
 
 class JobPostRepository extends BaseRepository implements JobPostRepositoryInterface
 {
@@ -64,5 +66,36 @@ class JobPostRepository extends BaseRepository implements JobPostRepositoryInter
             ->when($filters['employment_type'] ?? null, fn (Builder $q, $type) => $q->where('employment_type', $type))
             ->when($filters['experience_level'] ?? null, fn (Builder $q, $level) => $q->where('experience_level', $level))
             ->when($filters['salary_min'] ?? null, fn (Builder $q, $min) => $q->where('salary_max', '>=', $min));
+    }
+
+     public function recordView(JobPost $job, ?int $userId, string $sessionId, ?string $ip): bool
+    {
+        $since = now()->subHours(JobPostConstants::VIEW_DEDUPE_HOURS);
+
+        $alreadyViewed = JobPostView::query()
+            ->where('job_post_id', $job->getKey())
+            ->where('viewed_at', '>=', $since)
+            ->when(
+                $userId !== null,
+                fn (Builder $q) => $q->where('user_id', $userId),
+                fn (Builder $q) => $q->where('session_id', $sessionId),
+            )
+            ->exists();
+
+        if ($alreadyViewed) {
+            return false;
+        }
+
+        JobPostView::create([
+            'job_post_id' => $job->getKey(),
+            'user_id'     => $userId,
+            'session_id'  => $sessionId,
+            'ip_address'  => $ip,
+            'viewed_at'   => now(),
+        ]);
+
+        $job->increment('views_count');
+
+        return true;
     }
 }

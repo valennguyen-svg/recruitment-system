@@ -12,11 +12,5 @@ final class DashboardConstants
 
     public const PERCENT_BASE = 100;
 
-    public const PERCENT_PRECISION = 1;
-
-    public const CHART_BAR_MAX_HEIGHT = 120;
-
-    public const CHART_BAR_MIN_HEIGHT = 4;
-
     private function __construct() {}
 }

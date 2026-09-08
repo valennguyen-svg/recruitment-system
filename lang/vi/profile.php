@@ -16,6 +16,7 @@ return [
         'unverified' => 'Địa chỉ email của bạn chưa được xác minh.',
         'resend' => 'Bấm vào đây để gửi lại email xác minh.',
         'link_sent' => 'Liên kết xác minh mới đã được gửi tới email của bạn.',
+        'email_locked'    => 'Email đăng nhập không thể thay đổi.',
     ],
 
     'actions' => [

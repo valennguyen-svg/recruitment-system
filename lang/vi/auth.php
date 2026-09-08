@@ -14,6 +14,7 @@ return [
         'password' => 'mật khẩu',
         'current_password' => 'mật khẩu hiện tại',
         'token' => 'mã xác thực',
+        'phone'=>'số điện thoại',
     ],
 
     'page' => [
@@ -33,6 +34,7 @@ return [
         'current_password' => 'Mật khẩu hiện tại',
         'new_password' => 'Mật khẩu mới',
         'remember_me' => 'Ghi nhớ đăng nhập',
+        'phone'=>'Số điện thoại',
     ],
 
     'actions' => [
@@ -46,5 +48,9 @@ return [
         'login_google' => 'Đăng nhập bằng Google',
         'resend_email' => 'Gửi lại email xác minh',
         'save' => 'Lưu',
+    ],
+
+        'messages' => [
+        'use_social_login' => 'Tài khoản này đăng nhập bằng Google. Vui lòng dùng nút "Đăng nhập với Google".',
     ],
 ];

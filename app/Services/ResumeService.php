@@ -9,6 +9,7 @@ use App\Repositories\Contracts\ResumeRepositoryInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Collection;
 
 class ResumeService
 {
@@ -16,14 +17,14 @@ class ResumeService
         private readonly ResumeRepositoryInterface $resumes,
     ) {}
 
-    public function store(CandidateProfile $profile, array $data, UploadedFile $file): Resume
+        public function store(CandidateProfile $profile, array $data, UploadedFile $file): Resume
     {
         return DB::transaction(function () use ($profile, $data, $file): Resume {
             $isFirst = $profile->resumes()->doesntExist();
 
             return $this->resumes->create([
+                ...$data,
                 'candidate_profile_id' => $profile->getKey(),
-                'title' => $data['title'],
                 'file_path' => $this->storeFile($file),
                 'original_name' => $file->getClientOriginalName(),
                 'is_default' => $isFirst,
@@ -34,7 +35,7 @@ class ResumeService
     public function update(Resume $resume, array $data, ?UploadedFile $file = null): Resume
     {
         return DB::transaction(function () use ($resume, $data, $file): Resume {
-            $payload = ['title' => $data['title']];
+            $payload = $data;
 
             if ($file !== null) {
                 $this->deleteFile($resume);
@@ -51,7 +52,7 @@ class ResumeService
     {
         DB::transaction(function () use ($resume): void {
             $wasDefault = $resume->is_default;
-            $profile = $resume->candidateProfile;
+            $profile= $resume->candidateProfile;
 
             $this->deleteFile($resume);
             $this->resumes->delete($resume);
@@ -90,4 +91,25 @@ class ResumeService
             $this->resumes->update($next, ['is_default' => true]);
         }
     }
+
+        /**
+     * Danh sách CV của ứng viên, mới nhất trước.
+     *
+     * @return Collection<int, Resume>
+     */
+    public function listForProfile(?CandidateProfile $profile): Collection
+    {
+        if ($profile === null) {
+            return collect();
+        }
+
+        return $profile->resumes()->latest()->get();
+    }
+
+    /** Đếm số CV. Trả về 0 nếu tài khoản chưa có hồ sơ ứng viên. */
+    public function countForProfile(?CandidateProfile $profile): int
+    {
+        return $profile?->resumes()->count() ?? 0;
+    }
+    
 }

@@ -12,15 +12,16 @@ enum JobStatus: string
     case EXPIRED = 'expired';
 
     public function label(): string
-    {
-        return __(match ($this) {
-            self::DRAFT => 'Draft',
-            self::PENDING_REVIEW => 'Pending review',
-            self::PUBLISHED => 'Published',
-            self::REJECTED => 'Rejected',
-            self::CLOSED => 'Closed',
-        });
-    }
+{
+    return __(match ($this) {
+        self::DRAFT => 'Draft',
+        self::PENDING_REVIEW  => 'Pending review',
+        self::PUBLISHED => 'Published',
+        self::REJECTED => 'Rejected',
+        self::CLOSED => 'Closed',  
+        self::EXPIRED => 'Expired',
+    });
+}
 
     /** @return self[] */
     public function allowedTransitions(): array

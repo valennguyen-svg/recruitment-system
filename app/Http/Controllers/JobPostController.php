@@ -11,6 +11,7 @@ use App\Services\JobPostService;
 use App\Services\JobWorkflowService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class JobPostController extends Controller
 {
@@ -31,11 +32,16 @@ class JobPostController extends Controller
         ]);
     }
 
-    public function show(JobPost $jobPost): View
+        public function show(Request $request, JobPost $jobPost): View
     {
         return view('jobs.show', [
             'jobPost' => $jobPost,
-            'related' => $this->jobPostService->prepareDetail($jobPost),
+            'related' => $this->jobPostService->prepareDetail(
+                $jobPost,
+                $request->user()?->getKey(),
+                $request->session()->getId(),
+                $request->ip(),
+            ),
         ]);
     }
 

@@ -60,12 +60,13 @@ return [
     ],
 
     'status' => [
-        'draft' => 'Bản nháp',
-        'published' => 'Đang tuyển',
-        'closed' => 'Đã đóng',
-        'pending_review' => 'Pending review',
-        'rejected' => 'Rejected',
-    ],
+    'draft' => 'Bản nháp',
+    'pending_review' => 'Chờ duyệt',
+    'published' => 'Đang đăng',
+    'rejected' => 'Bị từ chối',
+    'closed' => 'Đã đóng',
+    'expired' => 'Hết hạn',
+],
 
     'sort' => [
         'newest' => 'Mới nhất',
