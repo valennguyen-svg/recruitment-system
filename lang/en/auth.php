@@ -5,7 +5,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'use_google_login' => 'This account signs in with Google. Please use the "Log in with Google" button.',
     'account_locked' => 'This account has been locked.',
 
     'attributes' => [

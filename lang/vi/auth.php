@@ -7,6 +7,7 @@ return [
     'throttle' => 'Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau :seconds giây.',
 
     'account_locked' => 'Tài khoản đã bị khóa.',
+    'use_google_login' => 'Tài khoản này đăng nhập bằng Google. Vui lòng dùng nút "Đăng nhập với Google".',
 
     'attributes' => [
         'name' => 'họ tên',

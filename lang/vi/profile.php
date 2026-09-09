@@ -6,6 +6,7 @@ return [
         'info' => 'Thông tin tài khoản',
         'update_password' => 'Đổi mật khẩu',
         'delete_account' => 'Xoá tài khoản',
+        'social_account' => 'Bảo mật tài khoản',
     ],
 
     'hints' => [
@@ -17,6 +18,7 @@ return [
         'resend' => 'Bấm vào đây để gửi lại email xác minh.',
         'link_sent' => 'Liên kết xác minh mới đã được gửi tới email của bạn.',
         'email_locked' => 'Email dùng để đăng nhập nên không thể thay đổi.',
+        'social_account' => 'Tài khoản của bạn đăng nhập qua Google. Việc đổi mật khẩu và xoá tài khoản được quản lý trong tài khoản Google.',
     ],
 
     'actions' => [

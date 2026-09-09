@@ -69,21 +69,33 @@
                 </div>
             @endif
 
-            {{-- Đổi mật khẩu — ẩn với tài khoản đăng nhập qua Google --}}
+            {{-- Đổi mật khẩu và xoá tài khoản — cả hai đều cần mật khẩu để xác nhận,
+                 nên ẩn với tài khoản đăng nhập qua Google --}}
             @if ($user->hasPassword())
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="max-w-xl">
                         @include('profile.partials.update-password-form')
                     </div>
                 </div>
-            @endif
 
-            {{-- Xoá tài khoản --}}
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        @include('profile.partials.delete-user-form')
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        <h2 class="text-lg font-medium text-gray-900">
+                            {{ __('profile.page.social_account') }}
+                        </h2>
+
+                        <p class="mt-1 text-sm text-gray-600">
+                            {{ __('profile.hints.social_account') }}
+                        </p>
+                    </div>
+                </div>
+            @endif
 
         </div>
     </div>

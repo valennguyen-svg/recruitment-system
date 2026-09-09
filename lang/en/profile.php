@@ -6,6 +6,7 @@ return [
         'info' => 'Profile information',
         'update_password' => 'Update password',
         'delete_account' => 'Delete account',
+        'social_account' => 'Account security',
     ],
 
     'hints' => [
@@ -17,6 +18,7 @@ return [
         'resend' => 'Click here to re-send the verification email.',
         'link_sent' => 'A new verification link has been sent to your email address.',
         'email_locked' => 'Email dùng để đăng nhập nên không thể thay đổi.',
+        'social_account' => 'Your account signs in with Google. Password changes and account deletion are managed in your Google account.',
 
     ],
 
