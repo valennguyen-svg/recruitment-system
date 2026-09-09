@@ -11,4 +11,5 @@ return [
     'notifications' => 'Notifications',
     'applied' => 'My applications',
     'logged_in' => "You're logged in!",
+    'my_cv'=>'My CV',
 ];

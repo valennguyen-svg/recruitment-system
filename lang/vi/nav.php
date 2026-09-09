@@ -11,4 +11,5 @@ return [
     'notifications' => 'Thông báo',
     'applied' => 'Hồ sơ đã nộp',
     'loggin_in' => 'Bạn đã đăng nhập',
+    'my_cv'=>'CV của tôi',
 ];

@@ -7,6 +7,7 @@ use App\Models\CandidateProfile;
 use App\Models\Resume;
 use App\Repositories\Contracts\ResumeRepositoryInterface;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -89,5 +90,16 @@ class ResumeService
         if ($next !== null) {
             $this->resumes->update($next, ['is_default' => true]);
         }
+    }
+        /** @return Collection<int, Resume> */
+    public function listForProfile(?CandidateProfile $profile): Collection
+    {
+        if ($profile === null) {
+            return collect();
+        }
+
+        return $this->resumes->where([
+            'candidate_profile_id' => $profile->getKey(),
+        ]);
     }
 }

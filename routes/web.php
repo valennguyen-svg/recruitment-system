@@ -71,3 +71,4 @@ Route::middleware(['auth', 'role:' . UserRole::ADMIN->value])
     });
 
 require __DIR__ . '/auth.php';
+include __DIR__. '/CVManager.php';

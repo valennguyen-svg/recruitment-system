@@ -9,6 +9,8 @@ return [
         'resume_file' => 'CV file',
         'applied' => 'Applications submitted',
         'profile' => 'Profile',
+        'create_cv' => 'Create new CV',
+        'edit_cv'   => 'Edit CV',
     ],
 
     'attributes' => [
@@ -69,6 +71,9 @@ return [
         'cancel' => 'Cancel',
         'add_more' => '+ Add new CV',
         'save_changes' => 'Save changes',
+        'create_cv'   => 'Create CV',
+        'edit'        => 'Edit',
+        'set_default' => 'Set as default',
     ],
 
     'messages' => [
@@ -82,5 +87,7 @@ return [
         'confirm_delete' => 'Delete this CV?',
         'default_badge' => 'Default',
         'have_n_cv' => 'You have :count CV(s). Upload another one below.',
+        'default_set' => 'Default CV updated.',
+        'cv_updated'  => 'CV updated.',
     ],
 ];
