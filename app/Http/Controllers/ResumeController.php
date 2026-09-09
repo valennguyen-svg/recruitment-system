@@ -8,7 +8,9 @@ use App\Http\Requests\Resume\UpdateResumeRequest;
 use App\Models\Resume;
 use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ResumeController extends Controller
@@ -17,25 +19,48 @@ class ResumeController extends Controller
         private readonly ResumeService $resumes,
     ) {}
 
+    public function index(Request $request): View
+    {
+        $profile = $request->user()->candidateProfile;
+
+        return view('resumes.index', [
+            'resumes' => $profile?->resumes()->latest()->get() ?? collect(),
+        ]);
+    }
+
+    public function create(): View
+    {
+        return view('resumes.create');
+    }
+
     public function store(StoreResumeRequest $request): RedirectResponse
     {
         $this->resumes->store(
             $request->user()->candidateProfile,
-            $request->validated(),
+            $request->resumeData(),
             $request->file('file'),
         );
 
         return redirect()
-            ->route('profile.edit')
+            ->route('resumes.index')
             ->with('success', __('candidate.messages.cv_uploaded'));
+    }
+
+    public function edit(Resume $resume): View
+    {
+        $this->authorize('update', $resume);
+
+        return view('resumes.edit', [
+            'resume' => $resume,
+        ]);
     }
 
     public function update(UpdateResumeRequest $request, Resume $resume): RedirectResponse
     {
-        $this->resumes->update($resume, $request->validated(), $request->file('file'));
+        $this->resumes->update($resume, $request->resumeData(), $request->file('file'));
 
         return redirect()
-            ->route('profile.edit')
+            ->route('resumes.index')
             ->with('success', __('candidate.messages.cv_updated'));
     }
 
@@ -46,8 +71,17 @@ class ResumeController extends Controller
         $this->resumes->delete($resume);
 
         return redirect()
-            ->route('profile.edit')
+            ->route('resumes.index')
             ->with('success', __('candidate.messages.cv_deleted'));
+    }
+
+    public function setDefault(Resume $resume): RedirectResponse
+    {
+        $this->authorize('update', $resume);
+
+        $this->resumes->markAsDefault($resume);
+
+        return back()->with('success', __('candidate.messages.default_set'));
     }
 
     public function download(Resume $resume): StreamedResponse

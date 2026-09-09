@@ -65,6 +65,7 @@ return [
         'closed' => 'Closed',
         'pending_review' => 'Pending review',
         'rejected' => 'Rejected',
+        'expired'=>'Expired',
     ],
 
     'sort' => [

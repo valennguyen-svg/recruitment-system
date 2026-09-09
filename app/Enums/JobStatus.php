@@ -14,11 +14,12 @@ enum JobStatus: string
     public function label(): string
     {
         return __(match ($this) {
-            self::DRAFT => 'Draft',
-            self::PENDING_REVIEW => 'Pending review',
-            self::PUBLISHED => 'Published',
-            self::REJECTED => 'Rejected',
-            self::CLOSED => 'Closed',
+            self::DRAFT => 'job.status.draft',
+            self::PENDING_REVIEW => 'job.status.pending_review',
+            self::PUBLISHED => 'job.status.published',
+            self::REJECTED => 'job.status.rejected',
+            self::CLOSED => 'job.status.closed',
+            self::EXPIRED => 'job.status.expired',
         });
     }
 

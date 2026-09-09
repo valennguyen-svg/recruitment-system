@@ -9,6 +9,8 @@ return [
         'resume_file' => 'Tệp CV',
         'applied' => 'Hồ sơ đã nộp',
         'profile' => 'Profile',
+        'create_cv' => 'Tạo CV mới',
+        'edit_cv'   => 'Chỉnh sửa CV',
     ],
 
     'attributes' => [
@@ -69,6 +71,9 @@ return [
         'cancel' => 'Huỷ',
         'add_more' => '+ Thêm CV mới',
         'save_changes' => 'Lưu thay đổi',
+        'create_cv'   => 'Tạo CV',
+        'edit'        => 'Sửa',
+        'set_default' => 'Đặt mặc định',
     ],
 
     'messages' => [
@@ -82,5 +87,12 @@ return [
         'confirm_delete' => 'Xoá CV này?',
         'default_badge' => 'Mặc định',
         'have_n_cv' => 'Bạn đang có :count CV. Tải thêm CV mới bên dưới.',
+        'default_set' => 'Đã đặt làm CV mặc định.',
+        'cv_updated'  => 'Đã cập nhật CV.',
+    ],
+
+        'units' => [
+        'cv_count'          => ':count CV',
+        'application_count' => ':count đơn đã nộp',
     ],
 ];
