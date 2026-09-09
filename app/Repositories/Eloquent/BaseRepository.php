@@ -30,4 +30,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return (bool) $model->delete();
     }
+    /** @param array<string, mixed> $conditions */
+    public function count(array $conditions = []): int
+    {
+        return $this->model->where($conditions)->count();
+    }
 }

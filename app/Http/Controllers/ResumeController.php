@@ -24,7 +24,7 @@ class ResumeController extends Controller
         $profile = $request->user()->candidateProfile;
 
         return view('resumes.index', [
-            'resumes' => $this->resumes->listForProfile($profile),
+            'resumes' => $profile?->resumes()->latest()->get() ?? collect(),
         ]);
     }
 

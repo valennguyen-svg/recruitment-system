@@ -56,4 +56,8 @@ class User extends Authenticatable
             'id',
         );
     }
+    public function hasPassword(): bool
+    {
+        return $this->password !== null;
+    }
 }

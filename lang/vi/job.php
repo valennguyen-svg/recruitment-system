@@ -63,8 +63,9 @@ return [
         'draft' => 'Bản nháp',
         'published' => 'Đang tuyển',
         'closed' => 'Đã đóng',
-        'pending_review' => 'Pending review',
-        'rejected' => 'Rejected',
+        'pending_review' => 'Chờ duyêt',
+        'rejected' => 'Bị từ chối',
+        'expired'=>'Hết hạn',
     ],
 
     'sort' => [

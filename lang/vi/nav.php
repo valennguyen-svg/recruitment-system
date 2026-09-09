@@ -12,4 +12,5 @@ return [
     'applied' => 'Hồ sơ đã nộp',
     'loggin_in' => 'Bạn đã đăng nhập',
     'my_cv'=>'CV của tôi',
+    'admin_dashboard'=>'Quản trị',
 ];

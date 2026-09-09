@@ -16,6 +16,8 @@ return [
         'unverified' => 'Your email address is unverified.',
         'resend' => 'Click here to re-send the verification email.',
         'link_sent' => 'A new verification link has been sent to your email address.',
+        'email_locked' => 'Email dùng để đăng nhập nên không thể thay đổi.',
+
     ],
 
     'actions' => [

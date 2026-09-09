@@ -61,4 +61,9 @@ class ApplicationService
             'note' => $note,
         ]);
     }
+        /** Đếm số đơn ứng tuyển đã nộp. */
+    public function countForProfile(?CandidateProfile $profile): int
+    {
+        return $profile?->applications()->count() ?? 0;
+    }
 }

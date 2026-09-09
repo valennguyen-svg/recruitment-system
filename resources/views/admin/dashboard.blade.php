@@ -10,7 +10,7 @@
         ['label' => __('dashboard.cards.total_candidates'), 'value' => $overview['total_candidates'], 'color' => 'bg-rose-50 text-rose-700'],
     ];
 
-    $maxJobStatus = max(array_column($jobsByStatus, 'count') ?: [1]);
+    $maxJobStatus = max(1, collect($jobsByStatus)->max('count') ?? 0);
     $maxMonth     = max(array_values($perMonth) ?: [1]);
 @endphp
 

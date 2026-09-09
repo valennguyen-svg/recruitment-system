@@ -22,9 +22,11 @@ class ResumeRepository extends BaseRepository implements ResumeRepositoryInterfa
         ]);
     }
 
-    public function countForProfile(CandidateProfile $profile): int
+        public function countForProfile(CandidateProfile $profile): int
     {
-        return $this->count(['candidate_profile_id' => $profile->getKey()]);
+        return $this->model
+            ->where('candidate_profile_id', $profile->getKey())
+            ->count();
     }
 
     /** Kiểm tra CV có thuộc về ứng viên này không, dùng cho phân quyền. */
@@ -48,5 +50,12 @@ class ResumeRepository extends BaseRepository implements ResumeRepositoryInterfa
             ->where('candidate_profile_id', $candidateProfileId)
             ->update(['is_default' => false]);
     }
+        public function findForCandidate(int $resumeId, CandidateProfile $profile): ?Resume
+    {
+        return $this->model
+            ->where('candidate_profile_id', $profile->getKey())
+            ->find($resumeId);
+    }
+    
     
 }
