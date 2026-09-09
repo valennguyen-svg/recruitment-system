@@ -25,7 +25,12 @@ class UpdateResumeRequest extends FormRequest
     }
 
     public function attributes(): array
-    {
+    {   
         return __('candidate.attributes');
+    }
+
+    public function resumeData(): array
+    {
+        return $this->safe()->except('file');
     }
 }

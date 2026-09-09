@@ -17,31 +17,51 @@ class ResumeService
         private readonly ResumeRepositoryInterface $resumes,
     ) {}
 
+    /**
+     * Danh sách CV của ứng viên, mới nhất trước.
+     *
+     * @return Collection<int, Resume>
+     */
+    public function listForProfile(?CandidateProfile $profile): Collection
+    {
+        if ($profile === null) {
+            return collect();
+        }
+
+        return $profile->resumes()->latest()->get();
+    }
+
+    /** Đếm số CV. Trả về 0 nếu tài khoản chưa có hồ sơ ứng viên. */
+    public function countForProfile(?CandidateProfile $profile): int
+    {
+        return $profile?->resumes()->count() ?? 0;
+    }
+
+    /** @param array<string, mixed> $data */
     public function store(CandidateProfile $profile, array $data, UploadedFile $file): Resume
     {
         return DB::transaction(function () use ($profile, $data, $file): Resume {
             $isFirst = $profile->resumes()->doesntExist();
 
             return $this->resumes->create([
+                ...$data,
+                ...$this->fileAttributes($file),
                 'candidate_profile_id' => $profile->getKey(),
-                'title' => $data['title'],
-                'file_path' => $this->storeFile($file),
-                'original_name' => $file->getClientOriginalName(),
-                'is_default' => $isFirst,
+                'is_default'           => $isFirst,
             ]);
         });
     }
 
+    /** @param array<string, mixed> $data */
     public function update(Resume $resume, array $data, ?UploadedFile $file = null): Resume
     {
         return DB::transaction(function () use ($resume, $data, $file): Resume {
-            $payload = ['title' => $data['title']];
+            $payload = $data;
 
             if ($file !== null) {
                 $this->deleteFile($resume);
 
-                $payload['file_path'] = $this->storeFile($file);
-                $payload['original_name'] = $file->getClientOriginalName();
+                $payload = [...$payload, ...$this->fileAttributes($file)];
             }
 
             return $this->resumes->update($resume, $payload);
@@ -52,7 +72,7 @@ class ResumeService
     {
         DB::transaction(function () use ($resume): void {
             $wasDefault = $resume->is_default;
-            $profile = $resume->candidateProfile;
+            $profile    = $resume->candidateProfile;
 
             $this->deleteFile($resume);
             $this->resumes->delete($resume);
@@ -70,6 +90,21 @@ class ResumeService
 
             return $this->resumes->update($resume, ['is_default' => true]);
         });
+    }
+
+    /**
+     * Lưu file lên đĩa và trả về các thuộc tính mô tả file.
+     *
+     * @return array<string, mixed>
+     */
+    private function fileAttributes(UploadedFile $file): array
+    {
+        return [
+            'file_path' => $this->storeFile($file),
+            'original_name' => $file->getClientOriginalName(),
+            'mime_type' => $file->getMimeType(),
+            'size' => $file->getSize(),
+        ];
     }
 
     private function storeFile(UploadedFile $file): string
@@ -90,26 +125,5 @@ class ResumeService
         if ($next !== null) {
             $this->resumes->update($next, ['is_default' => true]);
         }
-    }
-        /** @return Collection<int, Resume> */
-    public function listForProfile(?CandidateProfile $profile): Collection
-    {
-        if ($profile === null) {
-            return collect();
-        }
-
-        return $this->resumes->where([
-            'candidate_profile_id' => $profile->getKey(),
-        ]);
-    }
-        public function countForProfile(?CandidateProfile $profile): int
-    {
-        if ($profile === null) {
-            return 0;
-        }
-
-        return $this->resumes->count([
-            'candidate_profile_id' => $profile->getKey(),
-        ]);
     }
 }

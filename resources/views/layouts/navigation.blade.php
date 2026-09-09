@@ -28,6 +28,12 @@
                                 {{ __('nav.applied') }}
                             </x-nav-link>
                         @endrole
+
+                        @role(UserRole::ADMIN->value)
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                                {{ __('nav.admin') }}
+                            </x-nav-link>
+                        @endrole
                     @endauth
                 </div>
             </div>
@@ -70,13 +76,11 @@
                                 </x-dropdown-link>
                             @endrole
 
-                            @if (Route::has('admin.dashboard'))
-                                @can('view_dashboard')
-                                    <x-dropdown-link :href="route('admin.dashboard')">
-                                        {{ __('nav.admin') }}
-                                    </x-dropdown-link>
-                                @endcan
-                            @endif
+                            @role(UserRole::ADMIN->value)
+                                <x-dropdown-link :href="route('admin.dashboard')">
+                                    {{ __('nav.admin') }}
+                                </x-dropdown-link>
+                            @endrole
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -156,13 +160,11 @@
                         {{ __('nav.profile') }}
                     </x-responsive-nav-link>
 
-                    @if (Route::has('admin.dashboard'))
-                        @can('view_dashboard')
-                            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
-                                {{ __('nav.admin') }}
-                            </x-responsive-nav-link>
-                        @endcan
-                    @endif
+                    @role(UserRole::ADMIN->value)
+                        <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                            {{ __('nav.admin') }}
+                        </x-responsive-nav-link>
+                    @endrole
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

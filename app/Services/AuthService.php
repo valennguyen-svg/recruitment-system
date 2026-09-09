@@ -111,14 +111,4 @@ class AuthService
         $user->assignRole(UserRole::CANDIDATE->value);
         $user->candidateProfile()->create([]);
     }
-        public function countForProfile(?CandidateProfile $profile): int
-    {
-        if ($profile === null) {
-            return 0;
-        }
-
-        return $this->applications->count([
-            'candidate_profile_id' => $profile->getKey(),
-        ]);
-    }
 }
