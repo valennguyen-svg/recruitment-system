@@ -33,6 +33,15 @@ class ResumeController extends Controller
         return view('resumes.create');
     }
 
+    public function show(Resume $resume): View
+    {
+        $this->authorize('View', $resume);
+        return view('resumes.show', [
+            'resume'=>$resume,
+            'profile'=>$resume->candidateProfile,
+        ]);
+    }
+
     public function store(StoreResumeRequest $request): RedirectResponse
     {
         $this->resumes->store(
@@ -91,4 +100,5 @@ class ResumeController extends Controller
         return Storage::disk(ResumeConstants::DISK)
             ->download($resume->file_path, $resume->original_name);
     }
+
 }

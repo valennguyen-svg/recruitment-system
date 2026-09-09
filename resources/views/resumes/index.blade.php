@@ -29,7 +29,10 @@
                         <div class="p-5 flex items-start justify-between gap-6">
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2">
-                                    <h3 class="font-medium text-gray-900">{{ $resume->title }}</h3>
+                                    <a href="{{ route('resumes.show', $resume) }}"
+                                       class="font-medium text-gray-900 hover:underline">
+                                        {{ $resume->title }}
+                                    </a>
 
                                     @if ($resume->is_default)
                                         <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded">
@@ -37,10 +40,6 @@
                                         </span>
                                     @endif
                                 </div>
-
-                                @if ($resume->headline)
-                                    <p class="text-sm text-gray-700 mt-1">{{ $resume->headline }}</p>
-                                @endif
 
                                 <p class="text-xs text-gray-500 mt-2">
                                     {{ $resume->original_name }} · {{ $resume->created_at->format('d/m/Y') }}
@@ -56,6 +55,11 @@
                                         </button>
                                     </form>
                                 @endunless
+
+                                <a href="{{ route('resumes.show', $resume) }}"
+                                   class="text-gray-600 hover:underline">
+                                    {{ __('candidate.actions.view') }}
+                                </a>
 
                                 <a href="{{ route('resumes.download', $resume) }}"
                                    class="text-gray-600 hover:underline">

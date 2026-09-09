@@ -12,4 +12,5 @@ Route::middleware('auth')->group(function (): void {
     Route::delete('/resumes/{resume}', [ResumeController::class, 'destroy'])->name('resumes.destroy');
     Route::get('/resumes/{resume}/download', [ResumeController::class, 'download'])->name('resumes.download');
     Route::post('/resumes/{resume}/default', [ResumeController::class, 'markAsDefault'])->name('resumes.default');
+    Route::get('/resumes/{resume}', [ResumeController::class, 'show'])->name('resumes.show');
 });

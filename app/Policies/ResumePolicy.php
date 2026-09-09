@@ -10,7 +10,7 @@ class ResumePolicy
     /** Chỉ chủ sở hữu CV mới được xem, sửa, xoá. */
     public function view(User $user, Resume $resume): bool
     {
-        return $this->owns($user, $resume);
+        return $user->candidateProfile?->getKey() === $resume->candidate_profile_id;
     }
 
     public function update(User $user, Resume $resume): bool
