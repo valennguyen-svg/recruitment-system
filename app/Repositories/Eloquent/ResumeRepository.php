@@ -13,16 +13,21 @@ class ResumeRepository extends BaseRepository implements ResumeRepositoryInterfa
         parent::__construct($model);
     }
 
+        /** Tạo CV gắn với hồ sơ ứng viên. */
     public function createForProfile(CandidateProfile $profile, array $attributes): Resume
     {
-        return $profile->resumes()->create($attributes);
+        return $this->create([
+            'candidate_profile_id' => $profile->getKey(),
+            ...$attributes,
+        ]);
     }
 
     public function countForProfile(CandidateProfile $profile): int
     {
-        return $profile->resumes()->count();
+        return $this->count(['candidate_profile_id' => $profile->getKey()]);
     }
 
+    /** Kiểm tra CV có thuộc về ứng viên này không, dùng cho phân quyền. */
     public function belongsToProfile(Resume $resume, ?CandidateProfile $profile): bool
     {
         return $profile !== null
@@ -43,4 +48,5 @@ class ResumeRepository extends BaseRepository implements ResumeRepositoryInterfa
             ->where('candidate_profile_id', $candidateProfileId)
             ->update(['is_default' => false]);
     }
+    
 }
