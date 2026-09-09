@@ -102,4 +102,14 @@ class ResumeService
             'candidate_profile_id' => $profile->getKey(),
         ]);
     }
+        public function countForProfile(?CandidateProfile $profile): int
+    {
+        if ($profile === null) {
+            return 0;
+        }
+
+        return $this->resumes->count([
+            'candidate_profile_id' => $profile->getKey(),
+        ]);
+    }
 }

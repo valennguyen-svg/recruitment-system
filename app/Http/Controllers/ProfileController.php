@@ -3,32 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Constants\UserConstants;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\DeleteUserRequest;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 use App\Services\ApplicationService;
 use App\Services\ProfileService;
+use App\Services\ResumeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    public function __construct(
+        public function __construct(
         private readonly ProfileService $profiles,
+        private readonly ResumeService $resumes,
         private readonly ApplicationService $applications,
     ) {}
 
-    public function edit(Request $request): View
+        public function edit(Request $request): View
     {
         $user      = $request->user();
         $candidate = $user->candidateProfile;
 
-        $candidate?->load('resumes');
-
         return view('profile.edit', [
-            'user'         => $user,
-            'candidate'    => $candidate,
-            'applications' => $this->applications->listForProfile($candidate),
+            'user'             => $user,
+            'candidate'        => $candidate,
+            'resumeCount'      => $this->resumes->countForProfile($candidate),
+            'applicationCount' => $this->applications->countForProfile($candidate),
         ]);
     }
 

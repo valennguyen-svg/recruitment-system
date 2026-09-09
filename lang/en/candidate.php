@@ -90,4 +90,9 @@ return [
         'default_set' => 'Default CV updated.',
         'cv_updated'  => 'CV updated.',
     ],
+
+        'units' => [
+        'cv_count'          => ':count CVs',
+        'application_count' => ':count applications',
+    ],
 ];

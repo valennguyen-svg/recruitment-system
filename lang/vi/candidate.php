@@ -90,4 +90,9 @@ return [
         'default_set' => 'Đã đặt làm CV mặc định.',
         'cv_updated'  => 'Đã cập nhật CV.',
     ],
+
+        'units' => [
+        'cv_count'          => ':count CV',
+        'application_count' => ':count đơn đã nộp',
+    ],
 ];
