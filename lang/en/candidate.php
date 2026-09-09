@@ -57,6 +57,7 @@ return [
         'keep_old_cv' => 'Upload a new CV file. Existing CVs are kept.',
         'my_cv_desc' => 'CV files you uploaded and the information you filled in.',
         'existing_cv' => 'Existing CVs:',
+        'shared_info' => 'Personal information is shared across all CVs. Edit it on the Profile page.',
     ],
 
     'actions' => [
@@ -74,6 +75,9 @@ return [
         'create_cv'   => 'Create CV',
         'edit'        => 'Edit',
         'set_default' => 'Set as default',
+        'view'=>'View',
+        'save'=>'Save',
+        
     ],
 
     'messages' => [

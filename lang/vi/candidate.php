@@ -57,6 +57,7 @@ return [
         'keep_old_cv' => 'Tải lên tệp CV mới. Các CV cũ vẫn được giữ nguyên.',
         'my_cv_desc' => 'Các tệp CV bạn đã tải lên và thông tin đã điền khi đăng ký.',
         'existing_cv' => 'CV hiện có:',
+        'shared_info'=>'Thông tin cá nhân dùng cho mọi cv. Sửa ở trang Hồ sơ cá nhân.',
     ],
 
     'actions' => [
@@ -74,6 +75,8 @@ return [
         'create_cv'   => 'Tạo CV',
         'edit'        => 'Sửa',
         'set_default' => 'Đặt mặc định',
+        'view'=>'Xem',
+        'save'=>'Lưu thay đổi',
     ],
 
     'messages' => [
