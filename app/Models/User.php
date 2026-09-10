@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -75,5 +76,14 @@ class User extends Authenticatable
     {
         return $this->company_id !== null
             && $this->company_id === $other?->company_id;
+    }
+    /**
+     * Diem duy nhat trong app duoc phep hoi vai tro super admin.
+     * Dung boi luat Gate::before va boi cac invariant nghiep vu
+     * (vi du: khong xoa super admin cuoi cung).
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(UserRole::SUPER_ADMIN->value);
     }
 }
