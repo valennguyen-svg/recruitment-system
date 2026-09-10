@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Constants\AuthConstants;
 use App\Constants\NotificationConstants;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {

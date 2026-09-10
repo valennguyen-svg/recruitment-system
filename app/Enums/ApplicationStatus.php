@@ -12,7 +12,7 @@ enum ApplicationStatus: string
     case REJECTED = 'rejected';
     case WITHDRAWN = 'withdrawn';
 
-        public function label(): string
+    public function label(): string
     {
         return __(match ($this) {
             self::APPLIED => 'Applied',
@@ -25,7 +25,7 @@ enum ApplicationStatus: string
         });
     }
 
-        public function badgeClass(): string
+    public function badgeClass(): string
     {
         return match ($this) {
             self::APPLIED => 'bg-gray-100 text-gray-700',

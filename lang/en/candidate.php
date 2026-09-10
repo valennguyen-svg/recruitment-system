@@ -10,7 +10,7 @@ return [
         'applied' => 'Applications submitted',
         'profile' => 'Profile',
         'create_cv' => 'Create new CV',
-        'edit_cv'   => 'Edit CV',
+        'edit_cv' => 'Edit CV',
     ],
 
     'attributes' => [
@@ -71,9 +71,10 @@ return [
         'cancel' => 'Cancel',
         'add_more' => '+ Add new CV',
         'save_changes' => 'Save changes',
-        'create_cv'   => 'Create CV',
-        'edit'        => 'Edit',
+        'create_cv' => 'Create CV',
+        'edit' => 'Edit',
         'set_default' => 'Set as default',
+        'save' => 'Save',
     ],
 
     'messages' => [
@@ -88,11 +89,11 @@ return [
         'default_badge' => 'Default',
         'have_n_cv' => 'You have :count CV(s). Upload another one below.',
         'default_set' => 'Default CV updated.',
-        'cv_updated'  => 'CV updated.',
+        'cv_updated' => 'CV updated.',
     ],
 
-        'units' => [
-        'cv_count'          => ':count CVs',
+    'units' => [
+        'cv_count' => ':count CVs',
         'application_count' => ':count applications',
     ],
 ];

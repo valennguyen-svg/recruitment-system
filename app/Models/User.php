@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -20,6 +22,7 @@ class User extends Authenticatable
         'avatar',
         'phone',
         'is_active',
+        'company_id',
     ];
 
     protected $hidden = [
@@ -40,7 +43,7 @@ class User extends Authenticatable
         return $this->hasOne(CandidateProfile::class);
     }
 
-    public function company()
+    public function ownedCompany(): HasOne
     {
         return $this->hasOne(Company::class);
     }
@@ -56,8 +59,21 @@ class User extends Authenticatable
             'id',
         );
     }
+
     public function hasPassword(): bool
     {
         return $this->password !== null;
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /** Nguoi dung nay va doi tuong kia co cung cong ty khong. */
+    public function sharesCompanyWith(?self $other): bool
+    {
+        return $this->company_id !== null
+            && $this->company_id === $other?->company_id;
     }
 }

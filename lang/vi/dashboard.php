@@ -14,12 +14,12 @@ return [
         'total_candidates' => 'Ứng tuyển',
     ],
 
-    'sections' => [
-        'status_by_status' => 'Tin theo trạng thái',
+        'sections' => [
+        'jobs_by_status' => 'Tin theo trạng thái',
         'jobs_per_month' => 'Tin đăng :months tháng gần nhất',
         'top_companies' => 'Công ty đăng nhiều tin nhất',
         'top_jobs' => 'Tin nhiều đơn ứng tuyển nhất',
-        'hired_rate' => 'Hiệu quả tuyển dụng',
+        'hire_rate' => 'Hiệu quả tuyển dụng',
     ],
 
     'units' => [
