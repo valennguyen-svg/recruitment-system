@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Constants\AuthConstants;
 use App\Constants\NotificationConstants;
 use App\Models\User;
+use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configurePasswordRules();
         $this->composeNotificationBell();
         $this->registerSuperAdminGate();
+        Gate::policy(User::class, UserPolicy::class);
     }
 
     private function configurePasswordRules(): void
