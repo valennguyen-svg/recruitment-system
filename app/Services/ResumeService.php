@@ -47,7 +47,7 @@ class ResumeService
                 ...$data,
                 ...$this->fileAttributes($file),
                 'candidate_profile_id' => $profile->getKey(),
-                'is_default'           => $isFirst,
+                'is_default' => $isFirst,
             ]);
         });
     }
@@ -72,7 +72,7 @@ class ResumeService
     {
         DB::transaction(function () use ($resume): void {
             $wasDefault = $resume->is_default;
-            $profile    = $resume->candidateProfile;
+            $profile = $resume->candidateProfile;
 
             $this->deleteFile($resume);
             $this->resumes->delete($resume);

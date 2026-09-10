@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\JobPostController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'role:' . UserRole::ADMIN->value])
+Route::middleware(['auth', 'role:'.UserRole::ADMIN->value])
     ->prefix('admin')
     ->name('admin.')
     ->group(function (): void {

@@ -9,9 +9,9 @@ use App\Notifications\JobApprovedNotification;
 use App\Notifications\JobRejectedNotification;
 use App\Repositories\Contracts\AuditLogRepositoryInterface;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Support\Facades\Auth;
 
 class JobWorkflowService
 {

@@ -10,7 +10,7 @@ return [
         'applied' => 'Hồ sơ đã nộp',
         'profile' => 'Profile',
         'create_cv' => 'Tạo CV mới',
-        'edit_cv'   => 'Chỉnh sửa CV',
+        'edit_cv' => 'Chỉnh sửa CV',
     ],
 
     'attributes' => [
@@ -71,8 +71,8 @@ return [
         'cancel' => 'Huỷ',
         'add_more' => '+ Thêm CV mới',
         'save_changes' => 'Lưu thay đổi',
-        'create_cv'   => 'Tạo CV',
-        'edit'        => 'Sửa',
+        'create_cv' => 'Tạo CV',
+        'edit' => 'Sửa',
         'set_default' => 'Đặt mặc định',
     ],
 
@@ -88,11 +88,11 @@ return [
         'default_badge' => 'Mặc định',
         'have_n_cv' => 'Bạn đang có :count CV. Tải thêm CV mới bên dưới.',
         'default_set' => 'Đã đặt làm CV mặc định.',
-        'cv_updated'  => 'Đã cập nhật CV.',
+        'cv_updated' => 'Đã cập nhật CV.',
     ],
 
-        'units' => [
-        'cv_count'          => ':count CV',
+    'units' => [
+        'cv_count' => ':count CV',
         'application_count' => ':count đơn đã nộp',
     ],
 ];

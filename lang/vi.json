@@ -33,5 +33,30 @@
 
     "Administrator": "Quản trị viên",
     "Recruiter": "Nhà tuyển dụng",
-    "Candidate": "Ứng viên"
+    "Candidate": "Ứng viên",
+
+    "Super administrator": "Quản trị tối cao",
+    "Company administrator": "Giám đốc công ty",
+
+    "View dashboard": "Xem bảng điều khiển",
+    "View users": "Xem người dùng",
+    "Create users": "Tạo người dùng",
+    "Update users": "Sửa người dùng",
+    "Delete users": "Xoá người dùng",
+    "Assign roles": "Gán vai trò",
+    "View companies": "Xem công ty",
+    "Update companies": "Sửa công ty",
+    "Approve companies": "Duyệt công ty",
+    "Delete companies": "Xoá công ty",
+    "Create job posts": "Đăng tin tuyển dụng",
+    "Update job posts": "Sửa tin tuyển dụng",
+    "Delete job posts": "Xoá tin tuyển dụng",
+    "Approve job posts": "Duyệt tin tuyển dụng",
+    "View all job posts": "Xem toàn bộ tin tuyển dụng",
+    "View applications": "Xem đơn ứng tuyển",
+    "View reports": "Xem báo cáo",
+    "View commissions": "Xem hoa hồng",
+    "Manage commissions": "Quản lý hoa hồng",
+    "View audit logs": "Xem nhật ký hệ thống",
+    "Manage settings": "Quản lý cấu hình"
 }

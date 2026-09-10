@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
+use App\Models\CandidateProfile;
+use App\Models\Resume;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,8 +59,14 @@ class User extends Authenticatable
             'id',
         );
     }
+
     public function hasPassword(): bool
     {
         return $this->password !== null;
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(UserRole::SUPER_ADMIN->value);
     }
 }

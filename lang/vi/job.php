@@ -65,7 +65,7 @@ return [
         'closed' => 'Đã đóng',
         'pending_review' => 'Chờ duyêt',
         'rejected' => 'Bị từ chối',
-        'expired'=>'Hết hạn',
+        'expired' => 'Hết hạn',
     ],
 
     'sort' => [

@@ -25,7 +25,7 @@ class UpdateResumeRequest extends FormRequest
     }
 
     public function attributes(): array
-    {   
+    {
         return __('candidate.attributes');
     }
 

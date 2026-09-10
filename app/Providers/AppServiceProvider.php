@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Constants\AuthConstants;
 use App\Constants\NotificationConstants;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configurePasswordRules();
         $this->composeNotificationBell();
+        $this->registerSuperAdminGate();
     }
 
     private function configurePasswordRules(): void
@@ -46,6 +49,15 @@ class AppServiceProvider extends ServiceProvider
                     : collect(),
                 'unreadCount' => $user?->unreadNotifications()->count() ?? 0,
             ]);
+        });
+    }
+    private function registerSuperAdminGate(): void
+    {
+        Gate::before(function (User $user, string $ability): ?bool{
+            if (!$user->is_active) {
+                return null;
+            }
+            return $user->isSuperAdmin() ? true : null;
         });
     }
 }
