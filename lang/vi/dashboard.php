@@ -14,7 +14,7 @@ return [
         'total_candidates' => 'Ứng tuyển',
     ],
 
-        'sections' => [
+    'sections' => [
         'jobs_by_status' => 'Tin theo trạng thái',
         'jobs_per_month' => 'Tin đăng :months tháng gần nhất',
         'top_companies' => 'Công ty đăng nhiều tin nhất',

@@ -26,8 +26,9 @@ final class ResumeConstants
     {
         return (int) (self::MAX_SIZE_KB / self::KILOBYTES_PER_MEGABYTE);
     }
-        /** Giới hạn số năm kinh nghiệm nhập vào. */
+
+    /** Giới hạn số năm kinh nghiệm nhập vào. */
     public const EXPERIENCE_YEARS_MIN = 0;
-    
+
     public const EXPERIENCE_YEARS_MAX = 50;
 }

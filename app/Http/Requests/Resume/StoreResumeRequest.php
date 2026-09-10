@@ -28,7 +28,8 @@ class StoreResumeRequest extends FormRequest
     {
         return __('candidate.attributes');
     }
-        /**
+
+    /**
      * Du lieu da chuan hoa de luu vao resumes.
      *
      * @return array<string, mixed>

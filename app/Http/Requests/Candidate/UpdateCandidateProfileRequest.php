@@ -4,7 +4,6 @@ namespace App\Http\Requests\Candidate;
 
 use App\Constants\CandidateProfileConstants as Profile;
 use Illuminate\Foundation\Http\FormRequest;
-use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
 
 class UpdateCandidateProfileRequest extends FormRequest
 {
@@ -35,14 +34,15 @@ class UpdateCandidateProfileRequest extends FormRequest
     {
         return __('candidate.attributes');
     }
+
     public function profileData(): array
     {
         $data = $this->validated();
-        $data['skills']=collect(explode(',', $data['skills'] ?? ''))
-        ->map(fn (string $skill): string => trim($skill))
-        ->filter()
-        ->values()
-        ->all();
+        $data['skills'] = collect(explode(',', $data['skills'] ?? ''))
+            ->map(fn (string $skill): string => trim($skill))
+            ->filter()
+            ->values()
+            ->all();
 
         return $data;
     }

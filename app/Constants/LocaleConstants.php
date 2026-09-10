@@ -5,6 +5,7 @@ namespace App\Constants;
 final class LocaleConstants
 {
     public const VI = 'vi';
+
     public const EN = 'en';
 
     /** @var array<int, string> */

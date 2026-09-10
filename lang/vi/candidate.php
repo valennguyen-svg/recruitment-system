@@ -74,7 +74,7 @@ return [
         'create_cv' => 'Tạo CV',
         'edit' => 'Sửa',
         'set_default' => 'Đặt mặc định',
-        'save' => 'Lưu'
+        'save' => 'Lưu',
     ],
 
     'messages' => [

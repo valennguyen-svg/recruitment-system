@@ -3,9 +3,7 @@
 namespace App\Http\Requests\Profile;
 
 use App\Constants\AuthConstants;
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -18,8 +16,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:'.AuthConstants::NAME_MAX_LENGTH],
-            
-            
+
         ];
     }
 

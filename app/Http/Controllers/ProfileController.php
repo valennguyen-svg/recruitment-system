@@ -14,18 +14,18 @@ class ProfileController extends Controller
 {
     public function __construct(
         private readonly ProfileService $profiles,
-       
+
     ) {}
 
-        public function edit(Request $request): View
+    public function edit(Request $request): View
     {
-        $user      = $request->user();
+        $user = $request->user();
         $candidate = $user->candidateProfile;
 
         return view('profile.edit', [
-            'user'             => $user,
-            'candidate'        => $candidate,
-            'resumeCount'      => $candidate?->resumes()->count() ?? 0,
+            'user' => $user,
+            'candidate' => $candidate,
+            'resumeCount' => $candidate?->resumes()->count() ?? 0,
             'applicationCount' => $candidate?->applications()->count() ?? 0,
         ]);
     }
@@ -48,5 +48,4 @@ class ProfileController extends Controller
 
         return redirect('/');
     }
-    
 }
