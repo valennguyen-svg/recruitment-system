@@ -1,12 +1,25 @@
 <?php
 
+use App\Enums\Permission;
+use App\Http\Controllers\Company\CommissionController;
+use App\Http\Controllers\Company\JobPostController;
 use App\Http\Controllers\Company\StaffController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use App\Enums\Permission;
-use App\Http\Controllers\Company\CommissionController;
 
-Route::middleware(['auth', 'can:' . Permission::COMMISSIONS_MANAGE->value])
+Route::middleware(['auth', 'can:'.Permission::JOBS_CREATE->value])
+    ->prefix('company')
+    ->name('company.')
+    ->group(function (): void {
+        Route::get('/jobs', [JobPostController::class, 'index'])->name('jobs.index');
+        Route::get('/jobs/create', [JobPostController::class, 'create'])->name('jobs.create');
+        Route::post('/jobs', [JobPostController::class, 'store'])->name('jobs.store');
+        Route::get('/jobs/{job}/edit', [JobPostController::class, 'edit'])->name('jobs.edit');
+        Route::patch('/jobs/{job}', [JobPostController::class, 'update'])->name('jobs.update');
+        Route::delete('/jobs/{job}', [JobPostController::class, 'destroy'])->name('jobs.destroy');
+    });
+
+Route::middleware(['auth', 'can:'.Permission::COMMISSIONS_MANAGE->value])
     ->prefix('company')
     ->name('company.')
     ->group(function (): void {

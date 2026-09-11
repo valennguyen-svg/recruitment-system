@@ -5,6 +5,9 @@ return [
         'index' => 'Việc làm',
         'detail' => 'Chi tiết tin tuyển dụng',
         'related' => 'Tin tuyển dụng liên quan',
+        'company_index' => 'Tin của công ty',
+        'create' => 'Đăng tin tuyển dụng',
+        'edit' => 'Sửa tin tuyển dụng',
     ],
 
     'attributes' => [
@@ -36,6 +39,10 @@ return [
         'description' => 'Mô tả công việc',
         'requirements' => 'Yêu cầu ứng viên',
         'benefits' => 'Quyền lợi',
+        'title' => 'Tiêu đề',
+        'salary_negotiable' => 'Lương thoả thuận',
+        'salary_min' => 'Lương tối thiểu',
+        'salary_max' => 'Lương tối đa',
     ],
 
     'placeholders' => [
@@ -66,6 +73,8 @@ return [
         'pending_review' => 'Chờ duyêt',
         'rejected' => 'Bị từ chối',
         'expired' => 'Hết hạn',
+        'by' => 'Đăng bởi :name',
+        'applications' => ':count đơn ứng tuyển',
     ],
 
     'sort' => [
@@ -82,6 +91,12 @@ return [
         'apply' => 'Nộp hồ sơ',
         'upload_cv' => 'Tải CV lên',
         'back' => 'Quay lại danh sách',
+        'create' => 'Đăng tin',
+        'save_draft' => 'Lưu bản nháp',
+        'edit' => 'Sửa',
+        'submit' => 'Gửi duyệt',
+        'delete' => 'Xoá',
+        'cancel' => 'Huỷ',
     ],
 
     'messages' => [

@@ -17,12 +17,12 @@ class StaffController extends Controller
         private readonly CompanyStaffService $staff,
     ) {}
 
-        public function index(Request $request): View
+    public function index(Request $request): View
     {
         $this->authorize('manageStaff', User::class);
 
         return view('company.staff.index', [
-            'staff'     => $this->staff->listForCompany($request->user()->company_id),
+            'staff' => $this->staff->listForCompany($request->user()->company_id),
             'companyId' => $request->user()->company_id,
         ]);
     }

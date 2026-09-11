@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\Job;
 
-use App\Constants\JobPostConstants;
+use App\Constants\JobConstants;
 use App\Enums\EmploymentType;
-use App\Enums\ExperienceLevel;
-use App\Enums\JobStatus;
+use App\Models\JobPost;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -13,31 +12,42 @@ class StoreJobPostRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()?->company !== null;
+        return $this->user()->can('create', JobPost::class);
     }
 
+       /** @return array<string, mixed> */
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:'.JobPostConstants::TITLE_MAX],
-            'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'location' => ['required', 'string', 'max:'.JobPostConstants::LOCATION_MAX],
-            'employment_type' => ['required', Rule::enum(EmploymentType::class)],
-            'experience_level' => ['required', Rule::enum(ExperienceLevel::class)],
-            'salary_min' => ['nullable', 'integer', 'min:0'],
-            'salary_max' => ['nullable', 'integer', 'gte:salary_min'],
-            'quantity' => ['required', 'integer', 'min:'.JobPostConstants::QUANTITY_MIN],
-            'description' => ['required', 'string'],
-            'requirements' => ['required', 'string'],
-            'benefits' => ['nullable', 'array'],
-            'benefits.*' => ['string', 'max:'.JobPostConstants::BENEFIT_MAX],
-            'deadline' => ['required', 'date', 'after:today'],
-            'status' => ['required', Rule::enum(JobStatus::class)],
+            'title'             => ['required', 'string', 'max:255'],
+            'category_id'       => ['required', 'integer', 'exists:job_categories,id'],
+            'description'       => ['required', 'string', 'max:' . JobConstants::DESCRIPTION_MAX],
+            'requirements'      => ['nullable', 'string', 'max:' . JobConstants::DESCRIPTION_MAX],
+            'benefits'          => ['nullable', 'string', 'max:' . JobConstants::DESCRIPTION_MAX],
+            'employment_type'   => ['required', Rule::enum(EmploymentType::class)],
+            'location'          => ['required', 'string', 'max:255'],
+            'deadline'          => ['required', 'date', 'after:today'],
+            'salary_negotiable' => ['required', 'boolean'],
+
+            // Luong thoa thuan thi bo qua hoan toan hai o so tien.
+            'salary_min' => [
+                'exclude_if:salary_negotiable,1',
+                'required', 'integer', 'min:0', 'max:2000000000',
+            ],
+            'salary_max' => [
+                'exclude_if:salary_negotiable,1',
+                'required', 'integer', 'min:0', 'max:2000000000', 'gte:salary_min',
+            ],
         ];
     }
 
-    public function attributes(): array
+    /** @return array<string, mixed> */
+    public function jobData(): array
     {
-        return __('job.attributes');
+        return [
+            ...$this->safe()->all(),
+            'salary_min' => $this->boolean('salary_negotiable') ? null : $this->integer('salary_min'),
+            'salary_max' => $this->boolean('salary_negotiable') ? null : $this->integer('salary_max'),
+        ];
     }
 }

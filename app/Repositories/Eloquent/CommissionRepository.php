@@ -26,7 +26,7 @@ class CommissionRepository implements CommissionRepositoryInterface
      * Loc theo user_id dat SAU baseQuery de ghi de moi bo loc user_id
      * gui tu request — HR khong xem duoc hoa hong cua nguoi khac.
      *
-     * @param array<string, mixed> $filters
+     * @param  array<string, mixed>  $filters
      */
     public function paginateForUser(User $user, array $filters, int $perPage): LengthAwarePaginator
     {

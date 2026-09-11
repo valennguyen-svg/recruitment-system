@@ -20,8 +20,8 @@ class CommissionController extends Controller
 
         return view('recruiter.commissions.index', [
             'commissions' => $this->commissions->listForUser($user, $request->filters()),
-            'totals'      => $this->commissions->totals((int) $user->company_id, $user->getKey()),
-            'statuses'    => CommissionStatus::cases(),
+            'totals' => $this->commissions->totals((int) $user->company_id, $user->getKey()),
+            'statuses' => CommissionStatus::cases(),
         ]);
     }
 }

@@ -16,11 +16,6 @@ class UpdateStaffRequest extends FormRequest
         return $this->user()->can('update', $this->route('staff'));
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [

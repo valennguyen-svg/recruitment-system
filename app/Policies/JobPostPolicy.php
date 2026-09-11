@@ -2,62 +2,78 @@
 
 namespace App\Policies;
 
-use App\Enums\UserRole;
+use App\Enums\JobStatus;
+use App\Enums\Permission;
 use App\Models\JobPost;
 use App\Models\User;
 
 class JobPostPolicy
 {
-    public function viewAny(User $user): bool
+    public function viewAny(User $actor): bool
     {
-        return false;
+        return $actor->can(Permission::JOBS_VIEW_ALL->value)
+            || $actor->can(Permission::JOBS_CREATE->value);
     }
 
-    public function view(User $user, JobPost $jobPost): bool
+    public function view(User $actor, JobPost $job): bool
     {
-        return false;
+        if ($job->status === JobStatus::PUBLISHED) {
+            return true;
+        }
+
+        if ($actor->can(Permission::JOBS_VIEW_ALL->value)) {
+            return true;
+        }
+
+        return $this->sameCompany($actor, $job);
     }
 
-    public function create(User $user): bool
+    public function create(User $actor): bool
     {
-        return false;
+        return $actor->can(Permission::JOBS_CREATE->value)
+            && $actor->company_id !== null;
     }
 
-    public function update(User $user, JobPost $jobPost): bool
+    public function update(User $actor, JobPost $job): bool
     {
-        return $user->hasRole(UserRole::ADMIN->value)
-            || $this->ownsCompany($user, $jobPost);
+        if (! $actor->can(Permission::JOBS_UPDATE->value)) {
+            return false;
+        }
+
+        if (! $this->sameCompany($actor, $job)) {
+            return false;
+        }
+
+        if ($job->status === JobStatus::PUBLISHED) {
+            return false;
+        }
+
+        return $actor->can(Permission::JOBS_UPDATE_ANY->value)
+            || $job->created_by === $actor->getKey();
     }
 
-    public function delete(User $user, JobPost $jobPost): bool
+    public function delete(User $actor, JobPost $job): bool
     {
-        return $this->update($user, $jobPost);
+        return $actor->can(Permission::JOBS_DELETE->value)
+            && $this->sameCompany($actor, $job)
+            && $job->status !== JobStatus::PUBLISHED;
     }
 
-    public function restore(User $user, JobPost $jobPost): bool
+    public function submit(User $actor, JobPost $job): bool
     {
-        return false;
+        return $this->update($actor, $job)
+            && in_array($job->status, [JobStatus::DRAFT, JobStatus::REJECTED], true);
     }
 
-    public function forceDelete(User $user, JobPost $jobPost): bool
+    public function approve(User $actor, JobPost $job): bool
     {
-        return false;
+        return $actor->can(Permission::JOBS_APPROVE->value)
+            && $job->status === JobStatus::PENDING_REVIEW;
     }
 
-    public function approve(User $user, JobPost $jobPost): bool
+    private function sameCompany(User $actor, JobPost $job): bool
     {
-        return $user->hasRole(UserRole::ADMIN->value);
-    }
-
-    public function close(User $user, JobPost $jobPost): bool
-    {
-        return $user->hasRole(UserRole::ADMIN->value)
-            || $this->ownsCompany($user, $jobPost);
-    }
-
-    private function ownsCompany(User $user, JobPost $jobPost): bool
-    {
-        return $user->hasRole(UserRole::RECRUITER->value)
-            && $jobPost->company_id === $user->company?->getKey();
+        return $actor->company_id !== null
+            && $actor->company_id === $job->company_id;
     }
 }

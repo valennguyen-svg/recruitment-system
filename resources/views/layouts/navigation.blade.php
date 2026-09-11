@@ -2,6 +2,7 @@
     use App\Enums\Permission;
     use App\Enums\UserRole;
     use App\Models\Commission;
+    use App\Models\JobPost;
     use App\Models\User;
 @endphp
 
@@ -17,7 +18,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
+                    <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.index') || request()->routeIs('jobs.show')">
                         {{ __('nav.jobs') }}
                     </x-nav-link>
 
@@ -31,6 +32,13 @@
                                 {{ __('nav.applied') }}
                             </x-nav-link>
                         @endrole
+
+                        @can('viewAny', JobPost::class)
+                            <x-nav-link :href="route('company.jobs.index')"
+                                        :active="request()->routeIs('company.jobs.*')">
+                                {{ __('nav.my_jobs') }}
+                            </x-nav-link>
+                        @endcan
 
                         @can('manageStaff', User::class)
                             <x-nav-link :href="route('company.staff.index')"
@@ -94,6 +102,12 @@
                                     {{ __('nav.applied') }}
                                 </x-dropdown-link>
                             @endrole
+
+                            @can('viewAny', JobPost::class)
+                                <x-dropdown-link :href="route('company.jobs.index')">
+                                    {{ __('nav.my_jobs') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             @can('manageStaff', User::class)
                                 <x-dropdown-link :href="route('company.staff.index')">
@@ -160,7 +174,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
 
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.*')">
+            <x-responsive-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.index') || request()->routeIs('jobs.show')">
                 {{ __('nav.jobs') }}
             </x-responsive-nav-link>
 
@@ -174,6 +188,13 @@
                         {{ __('nav.applied') }}
                     </x-responsive-nav-link>
                 @endrole
+
+                @can('viewAny', JobPost::class)
+                    <x-responsive-nav-link :href="route('company.jobs.index')"
+                                           :active="request()->routeIs('company.jobs.*')">
+                        {{ __('nav.my_jobs') }}
+                    </x-responsive-nav-link>
+                @endcan
 
                 @can('manageStaff', User::class)
                     <x-responsive-nav-link :href="route('company.staff.index')"

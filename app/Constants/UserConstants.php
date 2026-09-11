@@ -21,6 +21,6 @@ final class UserConstants
     public const STAFF_PER_PAGE = 15;
 
     public const NAME_MAX = 255;
-
+     
     private function __construct() {}
 }

@@ -4,18 +4,18 @@ namespace App\Enums;
 
 enum CommissionStatus: string
 {
-    case PENDING  = 'pending';
+    case PENDING = 'pending';
     case APPROVED = 'approved';
-    case PAID     = 'paid';
-    case VOID     = 'void';
+    case PAID = 'paid';
+    case VOID = 'void';
 
     public function label(): string
     {
         return __(match ($this) {
-            self::PENDING  => 'Pending approval',
+            self::PENDING => 'Pending approval',
             self::APPROVED => 'Approved',
-            self::PAID     => 'Paid',
-            self::VOID     => 'Voided',
+            self::PAID => 'Paid',
+            self::VOID => 'Voided',
         });
     }
 
@@ -23,10 +23,10 @@ enum CommissionStatus: string
     public function badgeClass(): string
     {
         return match ($this) {
-            self::PENDING  => 'bg-yellow-100 text-yellow-700',
+            self::PENDING => 'bg-yellow-100 text-yellow-700',
             self::APPROVED => 'bg-blue-100 text-blue-700',
-            self::PAID     => 'bg-green-100 text-green-700',
-            self::VOID     => 'bg-gray-100 text-gray-600',
+            self::PAID => 'bg-green-100 text-green-700',
+            self::VOID => 'bg-gray-100 text-gray-600',
         };
     }
 
@@ -34,10 +34,10 @@ enum CommissionStatus: string
     public function allowedTransitions(): array
     {
         return match ($this) {
-            self::PENDING  => [self::APPROVED, self::VOID],
+            self::PENDING => [self::APPROVED, self::VOID],
             self::APPROVED => [self::PAID, self::VOID],
-            self::PAID     => [],
-            self::VOID     => [],
+            self::PAID => [],
+            self::VOID => [],
         };
     }
 
@@ -52,14 +52,14 @@ enum CommissionStatus: string
         return in_array($this, [self::PAID, self::VOID], true);
     }
 
-        /** Ten route xu ly viec chuyen sang trang thai nay. */
+    /** Ten route xu ly viec chuyen sang trang thai nay. */
     public function routeName(): string
     {
         return match ($this) {
             self::APPROVED => 'company.commissions.approve',
-            self::PAID     => 'company.commissions.paid',
-            self::VOID     => 'company.commissions.void',
-            self::PENDING  => 'company.commissions.index',
+            self::PAID => 'company.commissions.paid',
+            self::VOID => 'company.commissions.void',
+            self::PENDING => 'company.commissions.index',
         };
     }
 }

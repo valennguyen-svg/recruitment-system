@@ -19,15 +19,15 @@ class CommissionController extends Controller
         private readonly CommissionService $commissions,
     ) {}
 
-        public function index(CommissionFilterRequest $request): View
+    public function index(CommissionFilterRequest $request): View
     {
         $companyId = (int) $request->user()->company_id;
 
         return view('company.commissions.index', [
             'commissions' => $this->commissions->listForCompany($companyId, $request->filters()),
-            'totals'      => $this->commissions->totals($companyId),
-            'statuses'    => CommissionStatus::cases(),
-            'staff'       => User::query()
+            'totals' => $this->commissions->totals($companyId),
+            'statuses' => CommissionStatus::cases(),
+            'staff' => User::query()
                 ->where('company_id', $companyId)
                 ->role(UserRole::RECRUITER->value)
                 ->orderBy('name')

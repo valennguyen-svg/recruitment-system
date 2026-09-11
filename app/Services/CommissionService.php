@@ -35,11 +35,11 @@ class CommissionService
         return Commission::firstOrCreate(
             ['application_id' => $application->getKey()],
             [
-                'user_id'     => $job->created_by,
-                'company_id'  => $job->company_id,
+                'user_id' => $job->created_by,
+                'company_id' => $job->company_id,
                 'job_post_id' => $job->getKey(),
-                'amount'      => $rate,
-                'status'      => CommissionStatus::PENDING,
+                'amount' => $rate,
+                'status' => CommissionStatus::PENDING,
             ],
         );
     }
@@ -56,22 +56,23 @@ class CommissionService
         if (! $commission->status->canTransitionTo($target)) {
             throw new DomainRuleException(__('commission.errors.invalid_transition', [
                 'from' => $commission->status->label(),
-                'to'   => $target->label(),
+                'to' => $target->label(),
             ]));
         }
 
         return DB::transaction(function () use ($commission, $target, $note): Commission {
             $commission->update([
-                'status'      => $target,
-                'note'        => $note ?? $commission->note,
+                'status' => $target,
+                'note' => $note ?? $commission->note,
                 'approved_at' => $target === CommissionStatus::APPROVED ? now() : $commission->approved_at,
-                'paid_at'     => $target === CommissionStatus::PAID ? now() : $commission->paid_at,
+                'paid_at' => $target === CommissionStatus::PAID ? now() : $commission->paid_at,
             ]);
 
             return $commission->refresh();
         });
     }
-        public function __construct(
+
+    public function __construct(
         private readonly CommissionRepositoryInterface $commissions,
     ) {}
 

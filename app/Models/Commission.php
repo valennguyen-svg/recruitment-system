@@ -23,10 +23,10 @@ class Commission extends Model
     protected function casts(): array
     {
         return [
-            'status'      => CommissionStatus::class,
-            'amount'      => 'integer',
+            'status' => CommissionStatus::class,
+            'amount' => 'integer',
             'approved_at' => 'datetime',
-            'paid_at'     => 'datetime',
+            'paid_at' => 'datetime',
         ];
     }
 

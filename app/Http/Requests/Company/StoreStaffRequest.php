@@ -5,7 +5,6 @@ namespace App\Http\Requests\Company;
 use App\Constants\UserConstants;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class StoreStaffRequest extends FormRequest
@@ -26,7 +25,7 @@ class StoreStaffRequest extends FormRequest
             // Dat 'same' tren password_confirmation de loi hien dung o do.
             'password' => ['required', Password::defaults()],
             'password_confirmation' => ['required', 'same:password'],
-            
+
         ];
     }
 

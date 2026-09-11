@@ -1,12 +1,12 @@
 <?php
 
+use App\Enums\Permission;
 use App\Enums\UserRole;
 use App\Http\Controllers\JobPostController;
-use Illuminate\Support\Facades\Route;
-use App\Enums\Permission;
 use App\Http\Controllers\Recruiter\CommissionController;
+use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'can:' . Permission::COMMISSIONS_VIEW->value])
+Route::middleware(['auth', 'can:'.Permission::COMMISSIONS_VIEW->value])
     ->prefix('recruiter')
     ->name('recruiter.')
     ->group(function (): void {

@@ -15,4 +15,5 @@ return [
     'admin_dashboard' => 'Quản trị',
     'staff' => 'Nhân sự',
     'commissions' => 'Hoa hồng',
+    'my_jobs' => 'Tin của tôi',
 ];

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Constants\AuthConstants;
 use App\Constants\NotificationConstants;
+use App\Models\JobPost;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Repositories\Contracts\CommissionRepositoryInterface;
@@ -19,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-         $this->app->bind(CommissionRepositoryInterface::class, CommissionRepository::class);
+        $this->app->bind(CommissionRepositoryInterface::class, CommissionRepository::class);
     }
 
     public function boot(): void
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerSuperAdminGate();
         Gate::policy(User::class, UserPolicy::class);
         Route::model('staff', User::class);
+        Route::model('job', JobPost::class);
     }
 
     private function configurePasswordRules(): void

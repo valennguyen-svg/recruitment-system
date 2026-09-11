@@ -44,6 +44,7 @@ class ApplicationService
                 'status' => ApplicationStatus::APPLIED,
             ]);
             $this->commission->recordForApplication($application);
+
             return $application;
         });
     }
@@ -70,5 +71,4 @@ class ApplicationService
     {
         return $profile?->applications()->count() ?? 0;
     }
-    
 }

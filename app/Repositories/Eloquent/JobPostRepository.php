@@ -3,8 +3,10 @@
 namespace App\Repositories\Eloquent;
 
 use App\Enums\JobStatus;
+use App\Enums\Permission;
 use App\Enums\SortOption;
 use App\Models\JobPost;
+use App\Models\User;
 use App\Repositories\Contracts\JobPostRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -64,5 +66,24 @@ class JobPostRepository extends BaseRepository implements JobPostRepositoryInter
             ->when($filters['employment_type'] ?? null, fn (Builder $q, $type) => $q->where('employment_type', $type))
             ->when($filters['experience_level'] ?? null, fn (Builder $q, $level) => $q->where('experience_level', $level))
             ->when($filters['salary_min'] ?? null, fn (Builder $q, $min) => $q->where('salary_max', '>=', $min));
+    }
+
+    public function paginateForActor(User $actor, int $perPage): LengthAwarePaginator
+    {
+        return $this->model
+            ->newQuery()
+            ->when(
+                ! $actor->can(Permission::JOBS_VIEW_ALL->value),
+                fn (Builder $query) => $query
+                    ->where('company_id', $actor->company_id)
+                    ->unless(
+                        $actor->can(Permission::JOBS_UPDATE_ANY->value),
+                        fn (Builder $inner) => $inner->where('created_by', $actor->getKey()),
+                    ),
+            )
+            ->with(['category:id,name', 'creator:id,name'])
+            ->withCount('applications')
+            ->latest()
+            ->paginate($perPage);
     }
 }
