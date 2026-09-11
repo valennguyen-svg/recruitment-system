@@ -14,4 +14,5 @@ return [
     'my_cv' => 'CV của tôi',
     'admin_dashboard' => 'Quản trị',
     'staff' => 'Nhân sự',
+    'commissions' => 'Hoa hồng',
 ];

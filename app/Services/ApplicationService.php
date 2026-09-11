@@ -16,6 +16,7 @@ class ApplicationService
 {
     public function __construct(
         private readonly ApplicationRepositoryInterface $applications,
+        private readonly CommissionService $commission,
     ) {}
 
     public function listForProfile(?CandidateProfile $profile): LengthAwarePaginator
@@ -42,6 +43,8 @@ class ApplicationService
                 'cover_letter' => $data['cover_letter'] ?? null,
                 'status' => ApplicationStatus::APPLIED,
             ]);
+            $this->commission->recordForApplication($application);
+            return $application;
         });
     }
 
@@ -67,4 +70,5 @@ class ApplicationService
     {
         return $profile?->applications()->count() ?? 0;
     }
+    
 }

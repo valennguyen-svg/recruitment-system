@@ -14,4 +14,5 @@ return [
     'my_cv' => 'My CV',
     'admin_dashboard' => 'Admin',
     'staff' => 'Staff',
+    'commissions'=>'Commissions',
 ];

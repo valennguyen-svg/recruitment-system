@@ -61,5 +61,10 @@
     "View commissions of every company": "Xem hoa hồng của mọi công ty",
     "Manage commissions": "Quản lý hoa hồng",
     "View audit logs": "Xem nhật ký hệ thống",
-    "Manage settings": "Quản lý cấu hình"
+    "Manage settings": "Quản lý cấu hình",
+
+    "Pending approval": "Chờ duyệt",
+    "Approved": "Đã duyệt",
+    "Paid": "Đã thanh toán",
+    "Voided": "Đã huỷ"
 }

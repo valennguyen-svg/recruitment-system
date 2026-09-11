@@ -1,6 +1,7 @@
 @php
     use App\Enums\Permission;
     use App\Enums\UserRole;
+    use App\Models\Commission;
     use App\Models\User;
 @endphp
 
@@ -35,6 +36,15 @@
                             <x-nav-link :href="route('company.staff.index')"
                                         :active="request()->routeIs('company.staff.*')">
                                 {{ __('nav.staff') }}
+                            </x-nav-link>
+                        @endcan
+
+                        @can('viewAny', Commission::class)
+                            <x-nav-link :href="auth()->user()->can(Permission::COMMISSIONS_MANAGE->value)
+                                            ? route('company.commissions.index')
+                                            : route('recruiter.commissions.index')"
+                                        :active="request()->routeIs('*.commissions.*')">
+                                {{ __('nav.commissions') }}
                             </x-nav-link>
                         @endcan
 
@@ -88,6 +98,14 @@
                             @can('manageStaff', User::class)
                                 <x-dropdown-link :href="route('company.staff.index')">
                                     {{ __('nav.staff') }}
+                                </x-dropdown-link>
+                            @endcan
+
+                            @can('viewAny', Commission::class)
+                                <x-dropdown-link :href="auth()->user()->can(Permission::COMMISSIONS_MANAGE->value)
+                                                    ? route('company.commissions.index')
+                                                    : route('recruiter.commissions.index')">
+                                    {{ __('nav.commissions') }}
                                 </x-dropdown-link>
                             @endcan
 
@@ -161,6 +179,15 @@
                     <x-responsive-nav-link :href="route('company.staff.index')"
                                            :active="request()->routeIs('company.staff.*')">
                         {{ __('nav.staff') }}
+                    </x-responsive-nav-link>
+                @endcan
+
+                @can('viewAny', Commission::class)
+                    <x-responsive-nav-link :href="auth()->user()->can(Permission::COMMISSIONS_MANAGE->value)
+                                              ? route('company.commissions.index')
+                                              : route('recruiter.commissions.index')"
+                                           :active="request()->routeIs('*.commissions.*')">
+                        {{ __('nav.commissions') }}
                     </x-responsive-nav-link>
                 @endcan
             @endauth

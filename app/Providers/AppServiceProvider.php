@@ -6,6 +6,8 @@ use App\Constants\AuthConstants;
 use App\Constants\NotificationConstants;
 use App\Models\User;
 use App\Policies\UserPolicy;
+use App\Repositories\Contracts\CommissionRepositoryInterface;
+use App\Repositories\Eloquent\CommissionRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+         $this->app->bind(CommissionRepositoryInterface::class, CommissionRepository::class);
     }
 
     public function boot(): void
