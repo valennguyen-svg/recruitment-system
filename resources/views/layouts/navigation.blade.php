@@ -1,5 +1,7 @@
 @php
+    use App\Enums\Permission;
     use App\Enums\UserRole;
+    use App\Models\User;
 @endphp
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
@@ -29,11 +31,18 @@
                             </x-nav-link>
                         @endrole
 
-                        @role(UserRole::ADMIN->value)
+                        @can('manageStaff', User::class)
+                            <x-nav-link :href="route('company.staff.index')"
+                                        :active="request()->routeIs('company.staff.*')">
+                                {{ __('nav.staff') }}
+                            </x-nav-link>
+                        @endcan
+
+                        @can(Permission::JOBS_APPROVE->value)
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
                                 {{ __('nav.admin') }}
                             </x-nav-link>
-                        @endrole
+                        @endcan
                     @endauth
                 </div>
             </div>
@@ -76,11 +85,17 @@
                                 </x-dropdown-link>
                             @endrole
 
-                            @role(UserRole::ADMIN->value)
+                            @can('manageStaff', User::class)
+                                <x-dropdown-link :href="route('company.staff.index')">
+                                    {{ __('nav.staff') }}
+                                </x-dropdown-link>
+                            @endcan
+
+                            @can(Permission::JOBS_APPROVE->value)
                                 <x-dropdown-link :href="route('admin.dashboard')">
                                     {{ __('nav.admin') }}
                                 </x-dropdown-link>
-                            @endrole
+                            @endcan
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -141,6 +156,13 @@
                         {{ __('nav.applied') }}
                     </x-responsive-nav-link>
                 @endrole
+
+                @can('manageStaff', User::class)
+                    <x-responsive-nav-link :href="route('company.staff.index')"
+                                           :active="request()->routeIs('company.staff.*')">
+                        {{ __('nav.staff') }}
+                    </x-responsive-nav-link>
+                @endcan
             @endauth
         </div>
 
@@ -160,11 +182,11 @@
                         {{ __('nav.profile') }}
                     </x-responsive-nav-link>
 
-                    @role(UserRole::ADMIN->value)
+                    @can(Permission::JOBS_APPROVE->value)
                         <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
                             {{ __('nav.admin') }}
                         </x-responsive-nav-link>
-                    @endrole
+                    @endcan
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

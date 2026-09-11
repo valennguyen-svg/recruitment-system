@@ -3,8 +3,10 @@
 namespace App\Repositories\Eloquent;
 
 use App\Constants\AuthConstants;
+use App\Enums\UserRole;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -27,5 +29,16 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         ])->save();
 
         return $user;
+    }
+
+    public function paginateStaffForCompany(int $companyId, int $perPage): LengthAwarePaginator
+    {
+        return $this->model
+            ->newQuery()
+            ->where('company_id', $companyId)
+            ->role(UserRole::RECRUITER->value)
+            ->withCount('jobPosts')
+            ->latest()
+            ->paginate($perPage);
     }
 }

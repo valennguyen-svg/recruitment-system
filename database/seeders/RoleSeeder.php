@@ -17,14 +17,14 @@ class RoleSeeder extends Seeder
 
         foreach (PermissionEnum::cases() as $permission) {
             Permission::firstOrCreate([
-                'name'       => $permission->value,
+                'name' => $permission->value,
                 'guard_name' => 'web',
             ]);
         }
 
         foreach (UserRole::cases() as $userRole) {
             $role = Role::firstOrCreate([
-                'name'       => $userRole->value,
+                'name' => $userRole->value,
                 'guard_name' => 'web',
             ]);
 

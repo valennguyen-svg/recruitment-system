@@ -4,20 +4,20 @@ namespace App\Enums;
 
 enum UserRole: string
 {
-    case SUPER_ADMIN   = 'super_admin';
-    case ADMIN         = 'admin';
+    case SUPER_ADMIN = 'super_admin';
+    case ADMIN = 'admin';
     case COMPANY_ADMIN = 'company_admin';
-    case RECRUITER     = 'recruiter';
-    case CANDIDATE     = 'candidate';
+    case RECRUITER = 'recruiter';
+    case CANDIDATE = 'candidate';
 
     public function label(): string
     {
         return __(match ($this) {
-            self::SUPER_ADMIN   => 'Super administrator',
-            self::ADMIN         => 'Administrator',
+            self::SUPER_ADMIN => 'Super administrator',
+            self::ADMIN => 'Administrator',
             self::COMPANY_ADMIN => 'Company administrator',
-            self::RECRUITER     => 'Recruiter',
-            self::CANDIDATE     => 'Candidate',
+            self::RECRUITER => 'Recruiter',
+            self::CANDIDATE => 'Candidate',
         });
     }
 

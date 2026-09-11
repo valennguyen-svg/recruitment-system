@@ -27,6 +27,29 @@
                 </header>
             @endisset
 
+            <!-- Flash message dung chung cho moi man hinh -->
+            @if (session('success') || session('error') || $errors->has('domain_rule'))
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-3">
+                    @if (session('success'))
+                        <div class="p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @error('domain_rule')
+                        <div class="p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

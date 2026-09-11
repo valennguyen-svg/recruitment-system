@@ -16,5 +16,11 @@ final class UserConstants
 
     public const ERROR_BAG_DELETION = 'userDeletion';
 
+    public const TEMPORARY_PASSWORD_LENGTH = 12;
+
+    public const STAFF_PER_PAGE = 15;
+
+    public const NAME_MAX = 255;
+
     private function __construct() {}
 }

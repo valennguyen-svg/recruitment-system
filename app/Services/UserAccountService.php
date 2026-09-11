@@ -7,15 +7,14 @@ use App\Exceptions\DomainRuleException;
 use App\Models\User;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-use Redirect;
 
 class UserAccountService
 {
     public function __construct(
         private readonly UserRepositoryInterface $users,
-    ){}
+    ) {}
 
-    public function delete (User $actor, User $target): void
+    public function delete(User $actor, User $target): void
     {
         $this->guardAgainstSelfDeletion($actor, $target);
         $this->guardAgainstLastSuperAdmin($target);
@@ -26,13 +25,13 @@ class UserAccountService
     /**Không ai tự xóa tài khoản cua chình mình, kể cả super admin */
     private function guardAgainstSelfDeletion(User $actor, User $target): void
     {
-        if ($actor->is($target)){
-             throw new DomainRuleException(__('user.errors.cannot_delete_self'));
+        if ($actor->is($target)) {
+            throw new DomainRuleException(__('user.errors.cannot_delete_self'));
         }
     }
 
     /**Hệ thống luôn phải con ít nhất một super admin đang hoạt động */
-     private function guardAgainstLastSuperAdmin(User $target): void
+    private function guardAgainstLastSuperAdmin(User $target): void
     {
         if (! $target->isSuperAdmin()) {
             return;

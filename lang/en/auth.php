@@ -5,8 +5,7 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
-    'account_locked' => 'This account has been locked.',
+    'account_locked' => 'This account has been locked. Contact your administrator.',
 
     'attributes' => [
         'name' => 'name',

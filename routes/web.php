@@ -9,3 +9,4 @@ include __DIR__.'/jobapplication.php';
 include __DIR__.'/notification.php';
 include __DIR__.'/recruiter.php';
 include __DIR__.'/admin.php';
+include __DIR__.'/company.php';

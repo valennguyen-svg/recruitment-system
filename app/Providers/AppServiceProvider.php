@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $this->composeNotificationBell();
         $this->registerSuperAdminGate();
         Gate::policy(User::class, UserPolicy::class);
+        Route::model('staff', User::class);
     }
 
     private function configurePasswordRules(): void
@@ -53,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
     }
+
     private function registerSuperAdminGate(): void
     {
         Gate::before(function (User $user, string $ability): ?bool {

@@ -31,7 +31,8 @@ class Company extends Model
     {
         return $this->hasMany(JobPost::class);
     }
-     /** Toan bo tai khoan thuoc cong ty: giam doc va HR. */
+
+    /** Toan bo tai khoan thuoc cong ty: giam doc va HR. */
     public function members(): HasMany
     {
         return $this->hasMany(User::class);

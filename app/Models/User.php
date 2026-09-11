@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -77,6 +78,7 @@ class User extends Authenticatable
         return $this->company_id !== null
             && $this->company_id === $other?->company_id;
     }
+
     /**
      * Diem duy nhat trong app duoc phep hoi vai tro super admin.
      * Dung boi luat Gate::before va boi cac invariant nghiep vu
@@ -85,5 +87,10 @@ class User extends Authenticatable
     public function isSuperAdmin(): bool
     {
         return $this->hasRole(UserRole::SUPER_ADMIN->value);
+    }
+
+    public function jobPosts(): HasMany
+    {
+        return $this->hasMany(JobPost::class, 'created_by');
     }
 }

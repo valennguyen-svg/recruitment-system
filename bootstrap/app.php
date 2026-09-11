@@ -1,12 +1,12 @@
 <?php
 
+use App\Exceptions\DomainRuleException;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Spatie\Permission\Middleware\RoleMiddleware;
-use App\Exceptions\DomainRuleException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(

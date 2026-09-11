@@ -5,8 +5,7 @@ return [
     'failed' => 'Thông tin đăng nhập không chính xác.',
     'password' => 'Mật khẩu không đúng.',
     'throttle' => 'Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau :seconds giây.',
-
-    'account_locked' => 'Tài khoản đã bị khóa.',
+    'account_locked' => 'Tài khoản đã bị khóa. Vui lòng liên hệ quản trị viên.',
 
     'attributes' => [
         'name' => 'họ tên',
